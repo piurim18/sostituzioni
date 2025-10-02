@@ -1,46 +1,68 @@
-import java.io.Serializable;
-import java.util.List;
+public class Docente {
+    private String cognome;
+    private int numero;
+    private int durata;
+    private String materia;
+    private String classe;
+    private char codocenza;
+    private String giorno;
+    private int orarioInizio;
 
-public class Docente implements Serializable {
-    private String nome;
-    private List<String> classi;
-    private List<String> materie;
-    private List<String> orariInsegnamento;
-    private List<String> oreLibere;
-    private List<String> oreDisponibili;
 
-
-    public Docente(String nome, List<String> classi, List<String> materie, List<String> orariInsegnamento, List<String> oreLibere, List<String> oreDisponibili) {
-        this.nome = nome;
-        this.classi = classi;
-        this.materie = materie;
-        this.orariInsegnamento = orariInsegnamento;
-        this.oreLibere = oreLibere;
-        this.oreDisponibili = oreDisponibili;
+    public Docente(String cognome, int numero, String materia, char codocenza, int durata, String classe, String giorno, int orarioInizio) {
+        this.cognome = cognome;
+        this.numero = numero;
+        this.materia = materia;
+        this.codocenza = codocenza;
+        this.durata = durata;
+        this.classe = classe;
+        this.giorno = giorno;
+        this.orarioInizio = orarioInizio;
     }
 
-
-    public String getNome() {
-        return nome;
+    public String getCognome() {
+        return cognome;
     }
 
-    public List<String> getClassi() {
-        return classi;
+    public int getOrarioInizio() {
+        return orarioInizio;
     }
 
-    public List<String> getMaterie() {
-        return materie;
+    public String getGiorno() {
+        return giorno;
     }
 
-    public List<String> getOrariInsegnamento() {
-        return orariInsegnamento;
+    public char getCodocenza() {
+        return codocenza;
     }
 
-    public List<String> getOreLibere() {
-        return oreLibere;
+    public String getClasse() {
+        return classe;
     }
 
-    public List<String> getOreDisponibili() {
-        return oreDisponibili;
+    public String getMateria() {
+        return materia;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public int getDurata() {
+        return durata;
+    }
+
+    @Override
+    public String toString() {
+        return "Docente{" +
+                "cognome='" + cognome + '\'' +
+                ", numero=" + numero +
+                ", durata=" + durata +
+                ", materia='" + materia + '\'' +
+                ", classe='" + classe + '\'' +
+                ", codocenza=" + codocenza +
+                ", giorno='" + giorno + '\'' +
+                ", orarioInizio=" + orarioInizio +
+                '}';
     }
 }
