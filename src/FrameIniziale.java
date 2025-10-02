@@ -28,7 +28,8 @@ public class FrameIniziale {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                new FrameSecondo();
+                //new FrameSecondo();
+                new FrameDocenti();
             }
         });
 
