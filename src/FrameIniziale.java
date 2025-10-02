@@ -36,7 +36,6 @@ public class FrameIniziale {
         carica.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File.leggiFile();
             }
         });
 
