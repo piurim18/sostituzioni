@@ -33,6 +33,12 @@ public class FrameIniziale {
             }
         });
 
+        carica.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                File.leggiFile();
+            }
+        });
 
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
