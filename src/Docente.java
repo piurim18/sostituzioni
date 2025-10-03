@@ -1,5 +1,4 @@
 public class Docente {
-
     private String cognome;
 
     public Docente(String cognome) {
@@ -8,10 +7,6 @@ public class Docente {
 
     public String getCognome() {
         return cognome;
-    }
-
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
     }
 
     @Override

@@ -10,10 +10,6 @@ public class Materia {
         return materia;
     }
 
-    public void setMateria(String materia) {
-        this.materia = materia;
-    }
-
     @Override
     public String toString() {
         return "Materia{" + "materia='" + materia + '\'' + '}';
