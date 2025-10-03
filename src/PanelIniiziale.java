@@ -49,7 +49,10 @@ public class PanelIniiziale extends JPanel {
         prosegui.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new OrarioDocente();
+                new FrameOrarioTabella();
+
+                SwingUtilities.getWindowAncestor(PanelIniiziale.this).dispose();
+
                 //new FrameSecondo();
                 //new FrameDocenti();
             }

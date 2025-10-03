@@ -1,7 +1,7 @@
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 
-public class OrarioDocente extends JFrame {
+public class FrameOrarioTabella extends JFrame {
 
     private String [] giorniSettimana = {" ", "LUN", "MAR", "MER", "GIO", "VEN", "SAB"};
     private String [][] dati = {
@@ -15,19 +15,20 @@ public class OrarioDocente extends JFrame {
     };
     private JTable table = new JTable(dati, giorniSettimana);
 
-    public OrarioDocente(){
+
+    public FrameOrarioTabella(){
         setTitle("Orario Docente");
         setSize(600, 400);
+
+        table.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        table.setRowHeight(45);
 
 
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane);
         setVisible(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
     }
 
-    public static void main(String[] args) {
-
-        new OrarioDocente();
-
-    }
 }

@@ -13,5 +13,7 @@ public class Fi extends JFrame {
         add(panelIniiziale);
         setVisible(true);
         setSize(400,400);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
