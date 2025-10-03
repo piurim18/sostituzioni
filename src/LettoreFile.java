@@ -1,24 +1,32 @@
 import java.io.*;
+import java.util.ArrayList;
+
 
 public class LettoreFile {
 
-    public LettoreFile(){
-
-    }
+    static ArrayList<Lezione> lezioni = new ArrayList<>();
 
     public static void leggiFile(File percorsoLettoreFile) throws IOException {
+        try (CSVReader csvReader = new CSVReaderBuilder(new FileReader(percorsoLettoreFile)).build()) {
+            String[] record;
 
-        try (BufferedReader br = new BufferedReader(new FileReader(percorsoLettoreFile))) {
-            String linea;
-
-            while ((linea = br.readLine()) != null) {
-                System.out.println(linea);
+            while ((record = csvReader.readNext()) != null) {
+                for (String cella : record) {
+                    System.out.print(cella + "\t");
+                }
+                System.out.println();
             }
-        }catch (IOException ex) {
+        } catch (IOException ex) {
             System.err.println("Errore durante la lettura del file");
             ex.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        for (Lezione p : lezioni) {
+            System.out.println(p);
         }
     }
+
 
 
     public static void leggiQuartaColonna(File percorsoLettoreFile) {

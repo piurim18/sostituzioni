@@ -20,6 +20,9 @@ public class Lezione {
         this.orarioInizio = orarioInizio;
     }
 
+
+
+
     public String getCognome() {
         return cognome;
     }

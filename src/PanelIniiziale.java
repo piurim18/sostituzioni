@@ -36,7 +36,6 @@ public class PanelIniiziale extends JPanel {
                 if (risultato == JFileChooser.APPROVE_OPTION) {
                     File fileSelezionato = fileChooser.getSelectedFile();
 
-
                     try {
                         LettoreFile.leggiFile(fileSelezionato);
                     } catch (IOException ex) {
