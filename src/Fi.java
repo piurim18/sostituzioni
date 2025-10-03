@@ -8,7 +8,8 @@ public class Fi extends JFrame {
     PanelIniiziale panelIniiziale = new PanelIniiziale();
 
     public Fi(){
-        //setLayout(new BorderLayout());
+
+
         add(panelIniiziale);
         setVisible(true);
         setSize(400,400);

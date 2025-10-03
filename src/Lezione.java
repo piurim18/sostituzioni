@@ -1,6 +1,4 @@
-import java.io.Serializable;
-
-public class Docente  {
+public class Lezione {
     private String cognome;
     private int numero;
     private int durata;
@@ -11,7 +9,7 @@ public class Docente  {
     private int orarioInizio;
 
 
-    public Docente(String cognome, int numero, String materia, char codocenza, int durata, String classe, String giorno, int orarioInizio) {
+    public Lezione(String cognome, int numero, String materia, char codocenza, int durata, String classe, String giorno, int orarioInizio) {
         this.cognome = cognome;
         this.numero = numero;
         this.materia = materia;
