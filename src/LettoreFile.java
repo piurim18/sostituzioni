@@ -1,3 +1,7 @@
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
+
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -16,6 +20,8 @@ public class LettoreFile {
                 }
                 System.out.println();
             }
+
+
         } catch (IOException ex) {
             System.err.println("Errore durante la lettura del file");
             ex.printStackTrace();
@@ -33,7 +39,7 @@ public class LettoreFile {
         try (BufferedReader br = new BufferedReader(new FileReader(percorsoLettoreFile))) {
             String linea;
             while ((linea = br.readLine()) != null) {
-                String[] colonne = linea.split(",");
+                String[] colonne = linea.split(";");
                 if (colonne.length > 3) {
                     System.out.println(colonne[3]);
                 }
@@ -42,6 +48,12 @@ public class LettoreFile {
             System.err.println("Errore durante la lettura del file: " + e.getMessage());
         }
     }
+
+
+
+
+
+
 
 
 }

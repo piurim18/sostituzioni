@@ -10,7 +10,6 @@ public class PanelIniiziale extends JPanel {
     JButton carica = new JButton("Carica");
     JButton prosegui = new JButton("Prosegui");
 
-    //File f = new File();
 
     public PanelIniiziale(){
         setLayout(new GridBagLayout());
@@ -49,6 +48,7 @@ public class PanelIniiziale extends JPanel {
         prosegui.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 new FrameOrarioTabella();
 
                 SwingUtilities.getWindowAncestor(PanelIniiziale.this).dispose();
