@@ -1,3 +1,5 @@
+import com.opencsv.exceptions.CsvValidationException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -39,6 +41,8 @@ public class PanelIniiziale extends JPanel {
                         LettoreFile.leggiFile(fileSelezionato);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
+                    } catch (CsvValidationException ex) {
+                        throw new RuntimeException(ex);
                     }
                 }
             }
@@ -49,7 +53,8 @@ public class PanelIniiziale extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                new FrameOrarioTabella();
+                //new FrameOrarioTabella();
+                new FrameDocenti();
 
                 SwingUtilities.getWindowAncestor(PanelIniiziale.this).dispose();
 

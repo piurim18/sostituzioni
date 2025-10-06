@@ -1,15 +1,15 @@
 public class Lezione {
     private String cognome;
     private int numero;
-    private int durata;
+    private String durata;
     private String materia;
     private String classe;
     private char codocenza;
     private String giorno;
-    private int orarioInizio;
+    private String orarioInizio;
 
-
-    public Lezione(String cognome, int numero, String materia, char codocenza, int durata, String classe, String giorno, int orarioInizio) {
+        //NUMERO;DURATA;MAT_NOME;DOC_COGN;CLASSE;CO-DOC.;GIORNO;O.INIZIO
+    public Lezione(int numero, String durata, String materia, String cognome, String classe, char codocenza, String giorno, String orarioInizio) {
         this.cognome = cognome;
         this.numero = numero;
         this.materia = materia;
@@ -21,13 +21,7 @@ public class Lezione {
     }
 
 
-
-
-    public String getCognome() {
-        return cognome;
-    }
-
-    public int getOrarioInizio() {
+    public String getOrarioInizio() {
         return orarioInizio;
     }
 
@@ -47,12 +41,16 @@ public class Lezione {
         return materia;
     }
 
+    public String getDurata() {
+        return durata;
+    }
+
     public int getNumero() {
         return numero;
     }
 
-    public int getDurata() {
-        return durata;
+    public String getCognome() {
+        return cognome;
     }
 
     @Override
