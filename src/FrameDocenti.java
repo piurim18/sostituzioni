@@ -35,6 +35,8 @@ public class FrameDocenti extends JFrame {
         modello = new DefaultTableModel(colonne, 0);
         tabella = new JTable(modello);
         add(new JScrollPane(tabella), BorderLayout.CENTER);
+        tabella.getTableHeader().setReorderingAllowed(false);
+        tabella.getTableHeader().setResizingAllowed(false);
 
         comboDocenti.addActionListener(e -> aggiornaTabella());
 
