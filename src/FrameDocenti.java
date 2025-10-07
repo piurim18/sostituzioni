@@ -23,10 +23,13 @@ public class FrameDocenti extends JFrame {
         // Riempi la combo con i nomi dei docenti presenti nel file
         comboDocenti = new JComboBox<>();
         for (Lezione l : LettoreFile.lezioni) {
-            if (((DefaultComboBoxModel<String>) comboDocenti.getModel()).getIndexOf(l.getCognome()) == -1) {
-                comboDocenti.addItem(l.getCognome());
+            String primoCognome = l.getCognome()[0]; // prendi il primo cognome dell'array
+
+            if (((DefaultComboBoxModel<String>) comboDocenti.getModel()).getIndexOf(primoCognome) == -1) {
+                comboDocenti.addItem(primoCognome);
             }
         }
+
 
         pannelloNord.add(comboDocenti);
         add(pannelloNord, BorderLayout.NORTH);
