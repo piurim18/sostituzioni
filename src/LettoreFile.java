@@ -49,19 +49,19 @@ public class LettoreFile {
 //    }
 
 
-    public static void leggiFile(File percorsoLettoreFile) throws IOException, CsvValidationException {
+    public static void leggiFile(File percorsoLettoreFile) throws IOException, CsvValidationException{
         try (CSVReader csvReader = new CSVReaderBuilder(new FileReader(percorsoLettoreFile))
                 .withSkipLines(1)
                 .withCSVParser(new CSVParserBuilder().withSeparator(';').build())
-                .build()) {
+                .build()){
 
             String[] riga;
 
-            while ((riga = csvReader.readNext()) != null) {
+            while ((riga = csvReader.readNext()) != null){
 
 
 
-                for (String dato : riga ) {
+                for (String dato: riga ){
                     System.out.print(dato + "\t");
                 }
 
@@ -76,7 +76,7 @@ public class LettoreFile {
 
                 String [] cognomi = cogn.toLowerCase().split(";");
 
-                for (int i = 0; i < cognomi.length; i++) {
+                for (int i = 0; i < cognomi.length; i++){
                     System.out.println(cognomi[i]);
                 }
 
@@ -93,9 +93,9 @@ public class LettoreFile {
 
     public static ArrayList<Lezione> getOrarioDocente(String cognome) {
         ArrayList<Lezione> risultato = new ArrayList<>();
-        for (Lezione l : lezioni) {
-            for (String c : l.getCognome()) {
-                if (c.equalsIgnoreCase(cognome)) {
+        for(Lezione l: lezioni){
+            for(String c: l.getCognome()){
+                if(c.equalsIgnoreCase(cognome)){
                     risultato.add(l);
                     break;
                 }
