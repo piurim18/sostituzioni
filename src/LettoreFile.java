@@ -94,13 +94,16 @@ public class LettoreFile {
     public static ArrayList<Lezione> getOrarioDocente(String cognome) {
         ArrayList<Lezione> risultato = new ArrayList<>();
         for (Lezione l : lezioni) {
-            risultato.add(l);
-//            if (l.getCognome().equalsIgnoreCase(cognome)) {
-//                risultato.add(l);
-//            }
+            for (String c : l.getCognome()) {
+                if (c.equalsIgnoreCase(cognome)) {
+                    risultato.add(l);
+                    break;
+                }
+            }
         }
         return risultato;
     }
+
 
 
 
