@@ -5,23 +5,31 @@ public class FrameOrarioTabella extends JFrame {
 
     private String [] giorniSettimana = {" ", "LUN", "MAR", "MER", "GIO", "VEN", "SAB"};
     private String [][] dati = {
-            {"08:00-09:00", "", "", "", "", "", ""},
-            {"09:00-10:00", "", "", "", "", "", ""},
-            {"10:00-11:00", "", "", "", "", "", ""},
-            {"11:00-12:00", "", "", "", "", "", ""},
-            {"12:00-13:00", "", "", "", "", "", ""},
-            {"13:00-14:00", "", "", "", "", "", ""},
-            {"14:00-15:00", "", "", "", "", "", ""}
+            {"08:00", "", "", "", "", "", ""},
+            {"09:00", "", "", "", "", "", ""},
+            {"10:00", "", "", "", "", "", ""},
+            {"11:00", "", "", "", "", "", ""},
+            {"12:00", "", "", "", "", "", ""},
+            {"13:00", "", "", "", "", "", ""},
+
     };
     private JTable table = new JTable(dati, giorniSettimana);
 
 
     public FrameOrarioTabella(){
         setTitle("Orario Docente");
-        setSize(600, 400);
+        setSize(880, 530);
 
-        table.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        table.setRowHeight(45);
+        table.setFont(new Font("SansSerif", Font.BOLD, 18));
+        table.setRowHeight(75);
+        table.getTableHeader().setReorderingAllowed(false);
+        table.getTableHeader().setResizingAllowed(false);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        int[] larghezze = {80, 130, 130, 130, 130, 130, 130};
+        for (int i = 0; i < larghezze.length; i++) {
+            table.getColumnModel().getColumn(i).setPreferredWidth(larghezze[i]);
+        }
 
 
         JScrollPane scrollPane = new JScrollPane(table);
@@ -29,6 +37,10 @@ public class FrameOrarioTabella extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+    }
+
+    public static void main(String[] args) {
+        new FrameOrarioTabella();
     }
 
 }
