@@ -54,7 +54,7 @@ public class PanelIniiziale extends JPanel {
             public void actionPerformed(ActionEvent e) {
 
                 //new FrameOrarioTabella();
-                new FrameDocenti();
+                new FrameOrarioDocenti();
 
                 SwingUtilities.getWindowAncestor(PanelIniiziale.this).dispose();
 
