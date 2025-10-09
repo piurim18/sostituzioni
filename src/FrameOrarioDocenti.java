@@ -46,13 +46,16 @@ public class FrameOrarioDocenti extends JFrame {
 
         modello = new DefaultTableModel(giorniSettimana, 0);
         table = new JTable(dati, giorniSettimana);
-        //table = new JTable(modello);
+    //    table = new JTable(modello);
         add(new JScrollPane(table), BorderLayout.CENTER);
         table.setFont(new Font("SansSerif", Font.BOLD, 18));
         table.setRowHeight(75);
         table.getTableHeader().setReorderingAllowed(false);
         table.getTableHeader().setResizingAllowed(false);
+        table.isCellEditable(0,0);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+     //   table.setBackground(Color.pink);
+        table.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 
         int[] larghezze = {80, 130, 130, 130, 130, 130, 130};
         for (int i = 0; i < larghezze.length; i++) {
