@@ -1,17 +1,16 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.ArrayList;
 
-public class FrameDocenti extends JFrame {
+public class FrameOrarioDocenti extends JFrame {
     private JComboBox<String> comboDocenti;
-    private JTable tabella;
-    private DefaultTableModel modello;
+   private JTable table;
+   private DefaultTableModel modello;
 
-    public FrameDocenti() {
+    public FrameOrarioDocenti() {
         setTitle("Orario Docenti");
-        setSize(700, 400);
+        setSize(900, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -34,12 +33,35 @@ public class FrameDocenti extends JFrame {
         pannelloNord.add(comboDocenti);
         add(pannelloNord, BorderLayout.NORTH);
 
-        String[] colonne = {"Giorno", "Orario", "Materia", "Classe", "Durata", "Co-docenza"};
-        modello = new DefaultTableModel(colonne, 0);
-        tabella = new JTable(modello);
-        add(new JScrollPane(tabella), BorderLayout.CENTER);
-        tabella.getTableHeader().setReorderingAllowed(false);
-        tabella.getTableHeader().setResizingAllowed(false);
+         String [] giorniSettimana = {" ", "LUN", "MAR", "MER", "GIO", "VEN", "SAB"};
+         String [][] dati = {
+                {"08:00", "", "", "", "", "", ""},
+                {"09:00", "", "", "", "", "", ""},
+                {"10:00", "", "", "", "", "", ""},
+                {"11:00", "", "", "", "", "", ""},
+                {"12:00", "", "", "", "", "", ""},
+                {"13:00", "", "", "", "", "", ""},
+
+        };
+
+        modello = new DefaultTableModel(giorniSettimana, 0);
+        table = new JTable(dati, giorniSettimana);
+        //table = new JTable(modello);
+        add(new JScrollPane(table), BorderLayout.CENTER);
+        table.setFont(new Font("SansSerif", Font.BOLD, 18));
+        table.setRowHeight(75);
+        table.getTableHeader().setReorderingAllowed(false);
+        table.getTableHeader().setResizingAllowed(false);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        int[] larghezze = {80, 130, 130, 130, 130, 130, 130};
+        for (int i = 0; i < larghezze.length; i++) {
+            table.getColumnModel().getColumn(i).setPreferredWidth(larghezze[i]);
+        }
+
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        add(scrollPane);
 
         comboDocenti.addActionListener(e -> aggiornaTabella());
 
@@ -62,5 +84,9 @@ public class FrameDocenti extends JFrame {
                     l.getCodocenza()
             });
         }
+    }
+
+    public static void main(String[] args) {
+        new FrameOrarioDocenti();
     }
 }
