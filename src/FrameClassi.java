@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class FrameClassi extends JFrame{
+public class  FrameClassi extends JFrame{
 
 
     JComboBox<String> classe = new JComboBox<>();

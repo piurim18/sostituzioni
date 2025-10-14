@@ -3,65 +3,66 @@ import com.opencsv.exceptions.CsvValidationException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-
 public class PanelIniiziale extends JPanel {
-    JButton carica = new JButton("Carica");
-    JButton prosegui = new JButton("Prosegui");
+    private JButton carica = new JButton(" Carica File");
+    private JButton prosegui = new JButton("Prosegui");
 
-
-    public PanelIniiziale(){
+    public PanelIniiziale() {
         setLayout(new GridBagLayout());
-        carica.setPreferredSize(new Dimension(150, 50));
-        prosegui.setPreferredSize(new Dimension(150, 50));
-        GridBagConstraints b = new GridBagConstraints();
+        setBackground(new Color(162, 185, 216));
 
 
-        b.gridx = 0;
-        b.gridy = 0;
-        add(carica,b);
+        Font buttonFont = new Font("Segoe UI", Font.PLAIN, 18);
 
-        b.gridx = 0;
-        b.gridy = 1;
-        b.insets = new Insets(150,0,0,0);
-        add(prosegui,b);
 
-        carica.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                int risultato = fileChooser.showOpenDialog(PanelIniiziale.this);
+        setupButton(carica, buttonFont, new Color(70, 130, 180), Color.WHITE);
+        setupButton(prosegui, buttonFont, new Color(46, 204, 113), Color.WHITE);
 
-                if (risultato == JFileChooser.APPROVE_OPTION) {
-                    File fileSelezionato = fileChooser.getSelectedFile();
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.insets = new Insets(20, 0, 20, 0);
 
-                    try {
-                        LettoreFile.leggiFile(fileSelezionato);
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    } catch (CsvValidationException ex) {
-                        throw new RuntimeException(ex);
-                    }
+        gbc.gridy = 0;
+        add(carica, gbc);
+
+        gbc.gridy = 1;
+        gbc.insets = new Insets(60, 0, 0, 0);
+        add(prosegui, gbc);
+
+        carica.addActionListener((ActionEvent e) -> {
+            JFileChooser fileChooser = new JFileChooser();
+            int result = fileChooser.showOpenDialog(PanelIniiziale.this);
+
+            if (result == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                try {
+                    LettoreFile.leggiFile(selectedFile);
+                } catch (IOException | CsvValidationException ex) {
+                    JOptionPane.showMessageDialog(this, "Errore nel caricamento del file:\n" + ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
 
-
-        prosegui.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                //new FrameOrarioTabella();
-                new FrameOrarioDocenti();
-
-                SwingUtilities.getWindowAncestor(PanelIniiziale.this).dispose();
-
-                //new FrameSecondo();
-                //new FrameDocenti();
-            }
+        prosegui.addActionListener((ActionEvent e) -> {
+            new FrameSceltaOrario();
+            SwingUtilities.getWindowAncestor(PanelIniiziale.this).dispose();
         });
+    }
+
+    private void setupButton(JButton button, Font font, Color bgColor, Color fgColor) {
+        button.setFont(font);
+        button.setFocusPainted(false);
+        button.setBackground(bgColor);
+        button.setForeground(fgColor);
+        button.setPreferredSize(new Dimension(200, 50));
+        button.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(bgColor.darker()),
+                BorderFactory.createEmptyBorder(10, 20, 10, 20)
+        ));
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 
     }
