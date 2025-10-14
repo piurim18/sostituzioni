@@ -63,24 +63,6 @@ public class FrameOrarioDocenti extends JFrame {
         add(scrollPane);
 
 
-        table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            private final Color gialloChiaro = new Color(255, 255, 204);
-
-            @Override
-            public Component getTableCellRendererComponent(JTable table,
-                                                           Object value, boolean isSelected, boolean hasFocus,
-                                                           int row, int column) {
-                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                if (isSelected) {
-
-                    c.setBackground(table.getSelectionBackground());
-                } else {
-                    c.setBackground(gialloChiaro);
-                }
-                return c;
-            }
-        });
-
         comboDocenti.addActionListener(e -> aggiornaTabella());
 
         setVisible(true);
