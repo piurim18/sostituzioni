@@ -20,10 +20,10 @@ public class FrameOrarioDocenti extends JFrame {
         JPanel pannelloNord = new JPanel();
         pannelloNord.add(new JLabel("Seleziona docente: "));
 
-        // Riempi la combo con i nomi dei docenti presenti nel file
+
         comboDocenti = new JComboBox<>();
         for (Lezione l : LettoreFile.lezioni) {
-            String primoCognome = l.getCognome()[0]; // prendi il primo cognome dell'array
+            String primoCognome = l.getCognome()[0];
 
             if (((DefaultComboBoxModel<String>) comboDocenti.getModel()).getIndexOf(primoCognome) == -1) {
                 comboDocenti.addItem(primoCognome);
@@ -62,9 +62,9 @@ public class FrameOrarioDocenti extends JFrame {
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane);
 
-        // Qui applichiamo il renderer con sfondo giallino chiaro
+
         table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            private final Color gialloChiaro = new Color(255, 255, 204); // un giallo chiaro
+            private final Color gialloChiaro = new Color(255, 255, 204);
 
             @Override
             public Component getTableCellRendererComponent(JTable table,
@@ -72,7 +72,7 @@ public class FrameOrarioDocenti extends JFrame {
                                                            int row, int column) {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (isSelected) {
-                    // lascia colore di selezione standard
+
                     c.setBackground(table.getSelectionBackground());
                 } else {
                     c.setBackground(gialloChiaro);
