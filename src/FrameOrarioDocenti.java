@@ -2,12 +2,15 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class FrameOrarioDocenti extends JFrame {
     private JComboBox<String> comboDocenti;
     private JTable table;
     private DefaultTableModel modello;
+    private JButton indietro = new  JButton("Indietro");
 
     public FrameOrarioDocenti() {
         setTitle("Orario Docenti");
@@ -64,6 +67,18 @@ public class FrameOrarioDocenti extends JFrame {
 
 
         comboDocenti.addActionListener(e -> aggiornaTabella());
+
+        JPanel panelSud = new JPanel();
+        panelSud.add(indietro);
+        add(panelSud, BorderLayout.SOUTH);
+        indietro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new FrameSceltaOrario();
+            }
+        });
+
 
         setVisible(true);
     }
