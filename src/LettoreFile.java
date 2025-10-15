@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class LettoreFile {
 
     static ArrayList<Lezione> lezioni = new ArrayList<>();
+    static ArrayList<ClasseCell> classeCells = new ArrayList<>();
 
 
 
@@ -47,6 +48,8 @@ public class LettoreFile {
 
                 Lezione lezione = new Lezione(numero, durata, materia, cognomi, classe, codocenza, giorno, orarioInizio);
                 lezioni.add(lezione);
+                ClasseCell c = new ClasseCell(giorno,orarioInizio,durata,materia);
+                classeCells.add(c);
 
             }
 
@@ -67,6 +70,54 @@ public class LettoreFile {
         }
         return risultato;
     }
+
+    public static ArrayList<Lezione> getOrarioClasse(String classe) {
+        ArrayList<Lezione> risultato = new ArrayList<>();
+
+        for (Lezione l : lezioni) {
+            if (l.getClasse().equalsIgnoreCase(classe)) {
+                System.out.println(
+                        l.getGiorno() + " " +
+                                l.getOrarioInizio() + " - " +
+                                l.getDurata() + " | " +
+                                l.getMateria()
+
+                );
+                risultato.add(l);
+
+
+
+            }
+        }
+        return risultato;
+    }
+
+    public static ArrayList<ClasseCell> getgetoraclassis(String classe) {
+        ArrayList<ClasseCell> risOraClasse = new ArrayList<>();
+
+        for (Lezione l : lezioni) {
+            if (l.getClasse().equalsIgnoreCase(classe)) {
+                ClasseCell co = new ClasseCell(
+                        l.getGiorno(),
+                        l.getOrarioInizio(),
+                        l.getDurata(),
+                        l.getMateria()
+                );
+                risOraClasse.add(co);
+
+                System.out.println(
+                        co.getGiorno() + " " +
+                                co.getOrarioInizio() + " - " +
+                                co.getDurata() + " | " +
+                                co.getMateria()
+                );
+            }
+        }
+
+        return risOraClasse;
+    }
+
+
 
 
 
