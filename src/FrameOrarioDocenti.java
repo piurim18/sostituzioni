@@ -69,6 +69,7 @@ public class FrameOrarioDocenti extends JFrame {
         comboDocenti.addActionListener(e -> aggiornaTabella());
 
         JPanel panelSud = new JPanel();
+        indietro.setBackground(new Color(70, 130, 180));
         panelSud.add(indietro);
         add(panelSud, BorderLayout.SOUTH);
         indietro.addActionListener(new ActionListener() {
