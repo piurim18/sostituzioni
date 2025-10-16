@@ -74,6 +74,7 @@ public class FrameOrarioClassi extends JFrame {
         JPanel panelSud = new JPanel();
         panelSud.add(indietro);
         add(panelSud, BorderLayout.SOUTH);
+        indietro.setBackground(new Color(70, 130, 180));
         indietro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
