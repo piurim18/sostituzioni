@@ -4,14 +4,17 @@ public class ClasseCell {
     String OrarioInizio;
     String durata;
     String materia;
+    String docenti;
 
 
-    public ClasseCell(String giorno, String OrarioInizio, String durata, String materia) {
+    public ClasseCell(String giorno, String OrarioInizio, String durata, String materia, String docenti) {
         this.giorno = giorno;
         this.OrarioInizio = OrarioInizio;
         this.durata = durata;
         this.materia = materia;
+        this.docenti = docenti;  // Ora lo inizializzi correttamente
     }
+
 
     public String getMateria() {
         return materia;
@@ -29,6 +32,10 @@ public class ClasseCell {
         return giorno;
     }
 
+    public String getDocenti() {
+        return docenti;
+    }
+
 
     public String stampaPerGiorno(String giornoSettimana, String orarioInizio){
         if(this.getGiorno().equals(giornoSettimana) && this.getOrarioInizio().equals(orarioInizio)) {
@@ -36,6 +43,7 @@ public class ClasseCell {
         }
         return "";
     }
+
 
 
     @Override
