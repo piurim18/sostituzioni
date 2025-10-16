@@ -12,12 +12,12 @@ public class PanelIniiziale extends JPanel {
 
     public PanelIniiziale() {
         setLayout(new GridBagLayout());
-        setBackground(new Color(240, 243, 247)); // Colore di sfondo chiaro, neutro e moderno
+        setBackground(new Color(240, 243, 247));
 
         Font buttonFont = new Font("Segoe UI Semibold", Font.PLAIN, 20);
 
-        setupButton(carica, buttonFont, new Color(33, 150, 243), Color.WHITE);    // blu acceso
-        setupButton(prosegui, buttonFont, new Color(76, 175, 80), Color.WHITE);    // verde brillante
+        setupButton(carica, buttonFont, new Color(33, 150, 243), Color.WHITE);
+        setupButton(prosegui, buttonFont, new Color(76, 175, 80), Color.WHITE);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -31,7 +31,7 @@ public class PanelIniiziale extends JPanel {
         gbc.insets = new Insets(50, 40, 15, 40);
         add(prosegui, gbc);
 
-        // Azione Carica
+
         carica.addActionListener((ActionEvent e) -> {
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showOpenDialog(PanelIniiziale.this);
@@ -47,7 +47,7 @@ public class PanelIniiziale extends JPanel {
             }
         });
 
-        // Azione Prosegui
+
         prosegui.addActionListener((ActionEvent e) -> {
             new FrameSceltaOrario();
             SwingUtilities.getWindowAncestor(PanelIniiziale.this).dispose();
@@ -67,7 +67,7 @@ public class PanelIniiziale extends JPanel {
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         button.setOpaque(true);
 
-        // Aggiungiamo un effetto hover semplice
+
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 button.setBackground(bgColor.darker());
