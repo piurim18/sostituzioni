@@ -10,7 +10,8 @@ import java.util.ArrayList;
 
 public class LettoreFile {
 
-    static ArrayList<Lezione> lezioni = new ArrayList<>();
+    public static ArrayList<Lezione> lezioni = new ArrayList<>();
+
     static ArrayList<ClasseCell> classeCells = new ArrayList<>();
 
 
@@ -116,6 +117,9 @@ public class LettoreFile {
 
         return risOraClasse;
     }
+
+
+
 
 
 
