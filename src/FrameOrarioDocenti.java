@@ -2,12 +2,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class FrameOrarioDocenti extends JFrame {
     private JComboBox<String> comboDocenti;
@@ -15,8 +10,66 @@ public class FrameOrarioDocenti extends JFrame {
     private DefaultTableModel modello;
     private JButton indietro = new JButton("Indietro");
 
-    private Map<String, Color> coloriDocenti = new HashMap<>();
-    private String[][] docentiCelle = new String[6][7]; // 6 righe, 7 colonne
+    private final String[] giorni = {"LUN", "MAR", "MER", "GIO", "VEN", "SAB"};
+    private final String[] ore = {"08h00", "09h00", "10h00", "11h00", "12h00", "13h00"};
+
+    private Map<String, Color> coloriMaterie = new HashMap<>();
+
+    private Color generaColoreCasuale() {
+        Random rand = new Random();
+        int r = 100 + rand.nextInt(156);
+        int g = 100 + rand.nextInt(156);
+        int b = 100 + rand.nextInt(156);
+        return new Color(r, g, b);
+    }
+
+    class ColorRenderer extends DefaultTableCellRenderer {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                                                       boolean isSelected, boolean hasFocus,
+                                                       int row, int column) {
+
+            JLabel cell = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            cell.setHorizontalAlignment(SwingConstants.CENTER);
+            cell.setVerticalAlignment(SwingConstants.CENTER);
+
+            if (column == 0) {
+                cell.setBackground(Color.WHITE);
+                cell.setForeground(Color.BLACK);
+                return cell;
+            }
+
+            String testo = (value != null) ? value.toString() : "";
+            if (!testo.isEmpty()) {
+                String materia;
+                if (testo.toLowerCase().startsWith("<html")) {
+                    // 1) sostituisco i <br> con newline, poi rimuovo gli altri tag
+                    String withBreaks = testo.replaceAll("(?i)<br\\s*/?>", "\n");
+                    String pulito = withBreaks.replaceAll("<[^>]*>", "").trim();
+                    // 2) prendo la prima riga come materia
+                    String[] parts = pulito.split("\\n");
+                    materia = parts.length > 0 ? parts[0].trim() : pulito.trim();
+                } else {
+                    materia = testo.split("\\(")[0].trim();
+                }
+
+                Color colore = coloriMaterie.get(materia);
+                if (colore != null) {
+                    cell.setBackground(colore);
+                } else {
+                    cell.setBackground(Color.WHITE);
+                }
+            } else {
+                cell.setBackground(Color.WHITE);
+            }
+
+            Color sfondo = cell.getBackground();
+            int luminanza = (int) (0.299 * sfondo.getRed() + 0.587 * sfondo.getGreen() + 0.114 * sfondo.getBlue());
+            cell.setForeground(luminanza < 128 ? Color.WHITE : Color.BLACK);
+
+            return cell;
+        }
+    }
 
     public FrameOrarioDocenti() {
         setTitle("Orario Docenti");
@@ -27,161 +80,131 @@ public class FrameOrarioDocenti extends JFrame {
 
         JPanel pannelloNord = new JPanel();
         pannelloNord.add(new JLabel("Seleziona docente: "));
-
         comboDocenti = new JComboBox<>();
+
+        Set<String> cognomiUnici = new HashSet<>();
         for (Lezione l : LettoreFile.lezioni) {
-            String primoCognome = l.getCognome()[0];
-            if (((DefaultComboBoxModel<String>) comboDocenti.getModel()).getIndexOf(primoCognome) == -1) {
-                comboDocenti.addItem(primoCognome);
+            for (String cognome : l.getCognome()) {
+                if (cognomiUnici.add(cognome)) {
+                    comboDocenti.addItem(cognome);
+                }
             }
         }
+
+        for (Lezione l : LettoreFile.lezioni) {
+            String materia = l.getMateria();
+            if (materia != null && !materia.trim().isEmpty() && !coloriMaterie.containsKey(materia)) {
+                coloriMaterie.put(materia, generaColoreCasuale());
+            }
+        }
+
         pannelloNord.add(comboDocenti);
         add(pannelloNord, BorderLayout.NORTH);
 
-        for (int i = 0; i < comboDocenti.getItemCount(); i++) {
-            String docente = comboDocenti.getItemAt(i);
-            coloriDocenti.put(docente, generaColoreCasuale());
+        String[] colonne = new String[giorni.length + 1];
+        colonne[0] = "Ora";
+        System.arraycopy(giorni, 0, colonne, 1, giorni.length);
+
+        modello = new DefaultTableModel(colonne, 0);
+        for (String ora : ore) {
+            Object[] riga = new Object[colonne.length];
+            riga[0] = ora;
+            for (int i = 1; i < colonne.length; i++) riga[i] = "";
+            modello.addRow(riga);
         }
 
-        String[] giorniSettimana = {" ", "LUN", "MAR", "MER", "GIO", "VEN", "SAB"};
-        String[][] dati = {
-                {"08:00", "", "", "", "", "", ""},
-                {"09:00", "", "", "", "", "", ""},
-                {"10:00", "", "", "", "", "", ""},
-                {"11:00", "", "", "", "", "", ""},
-                {"12:00", "", "", "", "", "", ""},
-                {"13:00", "", "", "", "", "", ""}
-        };
-
-        modello = new DefaultTableModel(dati, giorniSettimana) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
         table = new JTable(modello);
-        table.setFont(new Font("SansSerif", Font.BOLD, 18));
-        table.setRowHeight(75);  // altezza fissa a 75
+        table.setFont(new Font("SansSerif", Font.BOLD, 14));
+        table.setRowHeight(75);
         table.getTableHeader().setReorderingAllowed(false);
-        table.getTableHeader().setResizingAllowed(false);
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        table.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 
-        int[] larghezze = {80, 130, 130, 130, 130, 130, 130};
-        for (int i = 0; i < larghezze.length; i++) {
-            table.getColumnModel().getColumn(i).setPreferredWidth(larghezze[i]);
-        }
+        // Nota: alcune LAF non mostrano i background nelle componenti "disabilitate"
+        // quindi manteniamo la tabella abilitata ma disabilitiamo la selezione.
+        table.setEnabled(true);
+        table.setRowSelectionAllowed(false);
+        table.setCellSelectionEnabled(false);
 
         table.setDefaultRenderer(Object.class, new ColorRenderer());
-
         add(new JScrollPane(table), BorderLayout.CENTER);
 
-        comboDocenti.addActionListener(e -> aggiornaTabella());
+        JPanel pannelloSud = new JPanel();
+        pannelloSud.add(indietro);
+        add(pannelloSud, BorderLayout.SOUTH);
 
-        JPanel panelSud = new JPanel();
         indietro.setBackground(new Color(70, 130, 180));
-        panelSud.add(indietro);
-        add(panelSud, BorderLayout.SOUTH);
-        indietro.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                new FrameSceltaOrario();
-            }
+        indietro.addActionListener(e -> {
+            dispose();
+            new FrameSceltaOrario();
         });
+
+        comboDocenti.addActionListener(e -> aggiornaTabella());
 
         setVisible(true);
     }
 
-    private Color generaColoreCasuale() {
-        Random rand = new Random();
-        int r = 150 + rand.nextInt(106);
-        int g = 150 + rand.nextInt(106);
-        int b = 150 + rand.nextInt(106);
-        return new Color(r, g, b);
+    private int getRigaOra(String ora) {
+        for (int i = 0; i < ore.length; i++) {
+            if (ora.startsWith(ore[i].substring(0, 2))) return i;
+        }
+        return -1;
+    }
+
+    private int getColonnaGiorno(String giorno) {
+        giorno = giorno.toLowerCase();
+        switch (giorno) {
+            case "lunedì": case "lun": return 1;
+            case "martedì": case "mar": return 2;
+            case "mercoledì": case "mer": return 3;
+            case "giovedì": case "gio": return 4;
+            case "venerdì": case "ven": return 5;
+            case "sabato": case "sab": return 6;
+            default: return -1;
+        }
     }
 
     private void aggiornaTabella() {
         String docenteSelezionato = (String) comboDocenti.getSelectedItem();
-        ArrayList<Lezione> orario = LettoreFile.getOrarioDocente(docenteSelezionato);
+        if (docenteSelezionato == null) return;
 
-        for (int r = 0; r < table.getRowCount(); r++) {
-            for (int c = 1; c < table.getColumnCount(); c++) {
-                table.setValueAt("", r, c);
-                docentiCelle[r][c] = null;
+        for (int r = 0; r < modello.getRowCount(); r++) {
+            for (int c = 1; c < modello.getColumnCount(); c++) {
+                modello.setValueAt("", r, c);
             }
-            docentiCelle[r][0] = null;
         }
 
-        for (Lezione l : orario) {
-            String giorno = l.getGiorno().toLowerCase();
-            String orarioInizio = l.getOrarioInizio();
-
-            int colonna = -1;
-            if (giorno.contains("lun")) colonna = 1;
-            else if (giorno.contains("mar")) colonna = 2;
-            else if (giorno.contains("mer")) colonna = 3;
-            else if (giorno.contains("gio")) colonna = 4;
-            else if (giorno.contains("ven")) colonna = 5;
-            else if (giorno.contains("sab")) colonna = 6;
-
-            int riga = -1;
-            if (orarioInizio.startsWith("08")) riga = 0;
-            else if (orarioInizio.startsWith("09")) riga = 1;
-            else if (orarioInizio.startsWith("10")) riga = 2;
-            else if (orarioInizio.startsWith("11")) riga = 3;
-            else if (orarioInizio.startsWith("12")) riga = 4;
-            else if (orarioInizio.startsWith("13")) riga = 5;
-
-            if (colonna != -1 && riga != -1) {
-                // testo con materia e classe a capo usando \n
-                String contenuto = l.getMateria() + "\n" + l.getClasse();
-                if (l.getCodocenza() != '\0' && l.getCodocenza() != 'N') {
-                    contenuto += "\n(c)";
+        ArrayList<Lezione> orarioDocente = new ArrayList<>();
+        for (Lezione l : LettoreFile.lezioni) {
+            for (String cognome : l.getCognome()) {
+                if (cognome.equalsIgnoreCase(docenteSelezionato)) {
+                    orarioDocente.add(l);
+                    break;
                 }
-                table.setValueAt(contenuto, riga, colonna);
-                docentiCelle[riga][colonna] = l.getCognome()[0];
+            }
+        }
+
+        for (Lezione l : orarioDocente) {
+            int col = getColonnaGiorno(l.getGiorno());
+            int row = getRigaOra(l.getOrarioInizio());
+
+            if (col == -1 || row == -1) continue;
+
+            int durata = 1;
+            try {
+                String durataStr = l.getDurata().replace("h00", "").trim();
+                durata = Integer.parseInt(durataStr);
+            } catch (Exception e) { }
+
+            String testo = "<html><center>" + l.getMateria() + "<br>" + l.getClasse() + "</center></html>";
+
+            for (int i = 0; i < durata && (row + i) < modello.getRowCount(); i++) {
+                modello.setValueAt(testo, row + i, col);
             }
         }
 
         table.repaint();
     }
 
-    private class ColorRenderer extends DefaultTableCellRenderer {
-        private final JTextArea textArea = new JTextArea();
-
-        public ColorRenderer() {
-            textArea.setLineWrap(true);
-            textArea.setWrapStyleWord(true);
-            textArea.setOpaque(true);
-            textArea.setFont(new Font("SansSerif", Font.BOLD, 18));
-        }
-
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value,
-                                                       boolean isSelected, boolean hasFocus,
-                                                       int row, int column) {
-            if (column == 0) {
-                return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            }
-
-            textArea.setText(value != null ? value.toString() : "");
-            String docente = docentiCelle[row][column];
-            if (docente != null && coloriDocenti.containsKey(docente)) {
-                textArea.setBackground(coloriDocenti.get(docente));
-            } else {
-                textArea.setBackground(Color.WHITE);
-            }
-            textArea.setForeground(Color.BLACK);
-
-            // Mantieni altezza fissa 75 come da origine
-            table.setRowHeight(row, 75);
-
-            return textArea;
-        }
-    }
-
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(FrameOrarioDocenti::new);
+        new FrameOrarioDocenti();
     }
 }

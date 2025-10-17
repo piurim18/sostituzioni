@@ -3,53 +3,70 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvValidationException;
 
+
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 
 public class LettoreFile {
 
-    public static ArrayList<Lezione> lezioni = new ArrayList<>();
+    static ArrayList<Lezione> lezioni = new ArrayList<>();
     static ArrayList<ClasseCell> classeCells = new ArrayList<>();
+    static ArrayList<DocenteCella> docenteCella = new ArrayList<>();
 
-    public static void leggiFile(File percorsoLettoreFile) throws IOException, CsvValidationException {
+
+
+    public static void leggiFile(File percorsoLettoreFile) throws IOException, CsvValidationException{
         try (CSVReader csvReader = new CSVReaderBuilder(new FileReader(percorsoLettoreFile))
                 .withSkipLines(1)
                 .withCSVParser(new CSVParserBuilder().withSeparator(';').build())
-                .build()) {
+                .build()){
 
             String[] riga;
 
-            while ((riga = csvReader.readNext()) != null) {
+            while ((riga = csvReader.readNext()) != null){
+
+
+
+//                for (String dato: riga ){
+//                    System.out.print(dato + "\t");
+//                }
 
                 int numero = (int) Double.parseDouble(riga[0]);
                 String durata = riga[1];
                 String materia = riga[2];
-                String cogn = riga[3];  // stringa dei docenti separati da ;
+                String cogn = riga[3];
                 String classe = riga[4];
                 char codocenza = riga[5].charAt(0);
                 String giorno = riga[6];
                 String orarioInizio = riga[7];
 
-                String[] cognomi = cogn.toLowerCase().split(";");
+                String [] cognomi = cogn.toLowerCase().split(";");
 
-                // Creo la lezione con cognomi array
+//                for (int i = 0; i < cognomi.length; i++){
+//                    System.out.println(cognomi[i]);
+//                }
+
                 Lezione lezione = new Lezione(numero, durata, materia, cognomi, classe, codocenza, giorno, orarioInizio);
                 lezioni.add(lezione);
-
-                // Creo ClasseCell con docenti come stringa
-                ClasseCell c = new ClasseCell(giorno, orarioInizio, durata, materia, cogn);
+                ClasseCell c = new ClasseCell(giorno,orarioInizio,durata,materia,cognomi);
                 classeCells.add(c);
+                DocenteCella d = new DocenteCella(materia,classe,orarioInizio,durata,giorno);
+                docenteCella.add(d);
+
             }
 
             System.out.println("\nTotale lezioni caricate: " + lezioni.size());
         }
     }
 
+
     public static ArrayList<Lezione> getOrarioDocente(String cognome) {
         ArrayList<Lezione> risultato = new ArrayList<>();
-        for (Lezione l : lezioni) {
-            for (String c : l.getCognome()) {
-                if (c.equalsIgnoreCase(cognome)) {
+        for(Lezione l: lezioni){
+            for(String c: l.getCognome()){
+                if(c.equalsIgnoreCase(cognome)){
                     risultato.add(l);
                     break;
                 }
@@ -68,8 +85,12 @@ public class LettoreFile {
                                 l.getOrarioInizio() + " - " +
                                 l.getDurata() + " | " +
                                 l.getMateria()
+
                 );
                 risultato.add(l);
+
+
+
             }
         }
         return risultato;
@@ -80,15 +101,12 @@ public class LettoreFile {
 
         for (Lezione l : lezioni) {
             if (l.getClasse().equalsIgnoreCase(classe)) {
-                // Converto l'array cognomi in stringa separata da ';'
-                String docenti = String.join(";", l.getCognome());
-
                 ClasseCell co = new ClasseCell(
                         l.getGiorno(),
                         l.getOrarioInizio(),
                         l.getDurata(),
                         l.getMateria(),
-                        docenti
+                        l.getCognome()
                 );
                 risOraClasse.add(co);
 
@@ -96,14 +114,51 @@ public class LettoreFile {
                         co.getGiorno() + " " +
                                 co.getOrarioInizio() + " - " +
                                 co.getDurata() + " | " +
-                                co.getMateria() + " | " +
-                                co.getDocenti()
+                                co.getMateria()
                 );
             }
         }
 
         return risOraClasse;
     }
+
+
+    public static ArrayList<DocenteCella> getgetoradocentis(String [] cognome) {
+        ArrayList<DocenteCella> risOraDocente = new ArrayList<>();
+
+        for (Lezione l : lezioni) {
+            if (Arrays.equals(l.getCognome(),cognome)){
+                //if(l.getCognome().equals(cognome)){
+                DocenteCella od = new DocenteCella(
+                        l.getMateria(),
+                        l.getClasse(),
+                        l.getOrarioInizio(),
+                        l.getDurata(),
+                        l.getGiorno()
+                );
+                risOraDocente.add(od);
+
+                System.out.println(
+                        od.getMateria() + " " +
+                                od.getClasse()
+                );
+            }
+        }
+
+        return risOraDocente;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
-
-

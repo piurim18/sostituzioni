@@ -15,11 +15,10 @@ public class FrameOrarioClassi extends JFrame {
 
     private final String[] giorni = {"LUN", "MAR", "MER", "GIO", "VEN", "SAB"};
     private final String[] ore = {"08h00", "09h00", "10h00", "11h00", "12h00", "13h00"};
+    private String cella;
 
-    // Mappa per assegnare un colore unico a ciascuna materia
     private Map<String, Color> coloriMaterie = new HashMap<>();
 
-    // Metodo per generare colore casuale
     private Color generaColoreCasuale() {
         Random rand = new Random();
         int r = 100 + rand.nextInt(156);
@@ -69,7 +68,6 @@ public class FrameOrarioClassi extends JFrame {
             return textArea;
         }
     }
-
     public FrameOrarioClassi() {
         setTitle("Orario Classi");
         setSize(900, 600);
@@ -87,7 +85,7 @@ public class FrameOrarioClassi extends JFrame {
             if (((DefaultComboBoxModel<String>) comboClassi.getModel()).getIndexOf(classe) == -1) {
                 comboClassi.addItem(classe);
 
-                // Assegna un colore casuale alla materia se non già assegnato
+                // Assegna un colore casuale alla classe se non già assegnato
                 coloriMaterie.put(classe, generaColoreCasuale());
             }
         }
@@ -114,7 +112,7 @@ public class FrameOrarioClassi extends JFrame {
         table.getTableHeader().setReorderingAllowed(false);
         table.setEnabled(false);
 
-        // Applica il renderer personalizzato per colorare e mostrare testo multilinea
+        // Applica il renderer personalizzato per colorare le celle in base alla classe
         table.setDefaultRenderer(Object.class, new ColorRenderer());
 
         add(new JScrollPane(table), BorderLayout.CENTER);
@@ -135,35 +133,75 @@ public class FrameOrarioClassi extends JFrame {
         setVisible(true);
     }
 
-    private int getColonnaGiorno(String giorno) {
-        for (int i = 0; i < giorni.length; i++) {
-            if (giorno.equalsIgnoreCase(giorni[i]))
-                return i + 1;
-        }
-        return -1;
-    }
 
-    private int getRigaOra(String ora) {
+
+
+    private int getRigaOra(String ora){
         for (int i = 0; i < ore.length; i++) {
             if (ora.startsWith(ore[i].substring(0, 2))) return i;
         }
         return -1;
     }
 
+
     private void aggiornatabella2() {
 
         String classeSelezionata = (String) comboClassi.getSelectedItem();
         ArrayList<ClasseCell> orario = LettoreFile.getgetoraclassis(classeSelezionata);
 
-        // Pulisci la tabella
         for (int r = 0; r < modello.getRowCount(); r++) {
             for (int c = 1; c < modello.getColumnCount(); c++) {
+
                 modello.setValueAt("", r, c);
+
+
             }
         }
 
-        // Per ogni lezione/materia
+
+//        for (ClasseCell l : orario) {
+//
+//            for (int r = 0; r < modello.getRowCount(); r++) {
+//                for (int c = 1; c < modello.getColumnCount(); c++) {
+//                    String colonna = modello.getColumnName(c);
+//                    if (colonna.equalsIgnoreCase("LUN") && l.getGiorno().equals("lunedì")) {
+//
+//
+//                        if (l.getOrarioInizio().equals(ore[0])) {
+//                            System.out.println("CIAO: " + l.toString());
+//                            modello.setValueAt(l.getMateria() + ", " + l.getDurata(), r, c);
+//                        }
+//                    }
+//                }
+//            }
+//
+//            for (int r = 1; r < modello.getRowCount(); r++) {
+//                for (int c = 1; c < modello.getColumnCount(); c++) {
+//                    String colonna = modello.getColumnName(c);
+//                    if (colonna.equalsIgnoreCase("LUN") && l.getGiorno().equals("lunedì")) {
+//
+//
+//                        if (l.getOrarioInizio().equals(ore[1])) {
+//                            System.out.println("CIAO: " + l.toString());
+//                            modello.setValueAt(l.getMateria() + ", " + l.getDurata(), r, c);
+//                        }
+//                    }
+//                }
+//            }
+//
+//        }
+
+        /*
+                                int rigaOra = getRigaOra(l.getOrarioInizio());
+                        if (r == rigaOra){
+                            System.out.println("CIAO: " +l.toString());
+                            modello.setValueAt(l.getMateria() + ", " +l.getDurata(),r,c);
+                        }
+                    }
+         */
+
         for (ClasseCell l : orario) {
+
             String materia = l.getMateria();
 
             // Assegna colore se non presente
@@ -171,36 +209,96 @@ public class FrameOrarioClassi extends JFrame {
                 coloriMaterie.put(materia, generaColoreCasuale());
             }
 
+
+            //for (int r = 0; r < modello.getRowCount(); r++) {
             for (int c = 1; c < modello.getColumnCount(); c++) {
                 String colonna = modello.getColumnName(c);
 
-                if ((colonna.equalsIgnoreCase("LUN") && l.getGiorno().equalsIgnoreCase("lunedì")) ||
-                        (colonna.equalsIgnoreCase("MAR") && l.getGiorno().equalsIgnoreCase("martedì")) ||
-                        (colonna.equalsIgnoreCase("MER") && l.getGiorno().equalsIgnoreCase("mercoledì")) ||
-                        (colonna.equalsIgnoreCase("GIO") && l.getGiorno().equalsIgnoreCase("giovedì")) ||
-                        (colonna.equalsIgnoreCase("VEN") && l.getGiorno().equalsIgnoreCase("venerdì")) ||
-                        (colonna.equalsIgnoreCase("SAB") && l.getGiorno().equalsIgnoreCase("sabato"))) {
-
+                if (colonna.equalsIgnoreCase("LUN") && l.getGiorno().equalsIgnoreCase("lunedì") || colonna.equalsIgnoreCase("MAR") && l.getGiorno().equalsIgnoreCase("Martedì") || colonna.equalsIgnoreCase("MER") && l.getGiorno().equalsIgnoreCase("mercoledì") || colonna.equalsIgnoreCase("GIO") && l.getGiorno().equalsIgnoreCase("giovedì") || colonna.equalsIgnoreCase("VEN") && l.getGiorno().equalsIgnoreCase("venerdì") || colonna.equalsIgnoreCase("SAB") && l.getGiorno().equalsIgnoreCase("sabato")) {
                     int rigaOra = getRigaOra(l.getOrarioInizio());
                     String durataStrstr = l.getDurata().replace("h00", "").trim();
                     int durata = Integer.parseInt(durataStrstr);
-
                     for (int i = 0; i < durata; i++) {
                         int rigaCorrente = rigaOra + i;
                         if (rigaCorrente < modello.getRowCount()) {
-                            // Ottieni i docenti per la lezione (assumendo metodo getDocenti() che ritorna stringa)
-                            String docenti = l.getDocenti();
-
-                            // Costruisci il testo da inserire nella cella: materia, durata e docenti
-                            String testoCella = materia + ", " + l.getDurata() + "\n" + docenti;
-
-                            modello.setValueAt(testoCella, rigaCorrente, c);
+                            cella = "<html><center>" + l.getMateria() + "<br>" + String.join(", ", l.getCognome()) + "</center></html>";
+                            //modello.setValueAt(cella, rigaCorrente, c);
+                            modello.setValueAt(materia + ", "+String.join(", ", l.getCognome()),rigaCorrente,c);
                         }
+                        // }
                     }
                 }
             }
         }
 
-        table.repaint();  // Aggiorna la tabella per mostrare i colori
+//                    if (colonna.equalsIgnoreCase("MAR") && l.getGiorno().equalsIgnoreCase("Martedì")) {
+//                        int rigaOra = getRigaOra(l.getOrarioInizio());
+//                        String durataStrstr = l.getDurata().replace("h00", "").trim();
+//                        int durata = Integer.parseInt(durataStrstr);
+//                        for (int i = 0; i < durata; i++) {
+//                            int rigaCorrente = rigaOra + i;
+//                            if (rigaCorrente < modello.getRowCount()) {
+//                                cella = "<html><center>" + l.getMateria() + "<br>" + String.join(", ", l.getCognome()) + "</center></html>";
+//                                modello.setValueAt(cella, rigaCorrente, c);
+//                            }
+//                        }
+//                    }
+//
+//                    if (colonna.equalsIgnoreCase("MER") && l.getGiorno().equalsIgnoreCase("mercoledì")) {
+//                        int rigaOra = getRigaOra(l.getOrarioInizio());
+//                        String durataStrstr = l.getDurata().replace("h00", "").trim();
+//                        int durata = Integer.parseInt(durataStrstr);
+//                        for (int i = 0; i < durata; i++) {
+//                            int rigaCorrente = rigaOra + i;
+//                            if (rigaCorrente < modello.getRowCount()) {
+//                                cella = "<html><center>" + l.getMateria() + "<br>" + String.join(", ", l.getCognome()) + "</center></html>";
+//                                modello.setValueAt(cella, rigaCorrente, c);
+//                            }
+//                        }
+//                    }
+//
+//                    if (colonna.equalsIgnoreCase("GIO") && l.getGiorno().equalsIgnoreCase("giovedì")) {
+//                        int rigaOra = getRigaOra(l.getOrarioInizio());
+//                        String durataStrstr = l.getDurata().replace("h00", "").trim();
+//                        int durata = Integer.parseInt(durataStrstr);
+//                        for (int i = 0; i < durata; i++) {
+//                            int rigaCorrente = rigaOra + i;
+//                            if (rigaCorrente < modello.getRowCount()) {
+//                                cella = "<html><center>" + l.getMateria() + "<br>" + String.join(", ", l.getCognome()) + "</center></html>";
+//                                modello.setValueAt(cella, rigaCorrente, c);
+//                            }
+//                        }
+//                    }
+//
+//                    if (colonna.equalsIgnoreCase("VEN") && l.getGiorno().equalsIgnoreCase("venerdì")) {
+//                        int rigaOra = getRigaOra(l.getOrarioInizio());
+//                        String durataStrstr = l.getDurata().replace("h00", "").trim();
+//                        int durata = Integer.parseInt(durataStrstr);
+//                        for (int i = 0; i < durata; i++) {
+//                            int rigaCorrente = rigaOra + i;
+//                            if (rigaCorrente < modello.getRowCount()) {
+//                                cella = "<html><center>" + l.getMateria() + "<br>" + String.join(", ", l.getCognome()) + "</center></html>";
+//                                modello.setValueAt(cella, rigaCorrente, c);
+//                            }
+//                        }
+//                    }
+//
+//                    if (colonna.equalsIgnoreCase("SAB") && l.getGiorno().equalsIgnoreCase("sabato")) {
+//                        int rigaOra = getRigaOra(l.getOrarioInizio());
+//                        String durataStrstr = l.getDurata().replace("h00", "").trim();
+//                        int durata = Integer.parseInt(durataStrstr);
+//                        for (int i = 0; i < durata; i++) {
+//                            int rigaCorrente = rigaOra + i;
+//                            if (rigaCorrente < modello.getRowCount()) {
+//                                cella = "<html><center>" + l.getMateria() + "<br>" + String.join(", ", l.getCognome()) + "</center></html>";
+//                                modello.setValueAt(cella, rigaCorrente, c);
+//                            }
+//                        }
+//                    }
+        //}
+        //}
+        //}
+        table.repaint();
     }
+
 }
