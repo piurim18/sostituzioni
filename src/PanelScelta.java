@@ -10,6 +10,7 @@ import java.io.IOException;
 public class PanelScelta extends JPanel {
     private JButton docenti = new JButton(" Orario per docenti");
     private JButton classe = new JButton("Orario per classe");
+    private JButton sostituzione = new JButton("Sostituzioni");
 
     public PanelScelta() {
         setLayout(new GridBagLayout());
@@ -21,6 +22,7 @@ public class PanelScelta extends JPanel {
 
         setupButton(docenti, buttonFont, new Color(96, 177, 221), Color.WHITE);
         setupButton(classe, buttonFont, new Color(96, 177, 221), Color.WHITE);
+        setupButton(sostituzione, buttonFont, new Color(96, 177, 221), Color.WHITE);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -32,6 +34,11 @@ public class PanelScelta extends JPanel {
         gbc.gridy = 1;
         gbc.insets = new Insets(60, 0, 0, 0);
         add(classe, gbc);
+
+        gbc.gridy = 2;
+        gbc.insets = new Insets(60, 0, 0, 0);
+        add(sostituzione, gbc);
+
 
         docenti.addActionListener(new  ActionListener() {
             @Override
@@ -46,6 +53,14 @@ public class PanelScelta extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new FrameOrarioClassi();
+                SwingUtilities.getWindowAncestor(PanelScelta.this).dispose();
+            }
+        });
+
+        sostituzione.addActionListener(new  ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new FrameSelezionaLista();
                 SwingUtilities.getWindowAncestor(PanelScelta.this).dispose();
             }
         });
