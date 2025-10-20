@@ -123,6 +123,49 @@ public class LettoreFile {
     }
 
 
+    public static void stampaSostitutoCompresenzaDettagli(String docenteAssente) {
+        for (Lezione l : lezioni) {
+            String[] docentiLezione = l.getCognome();
+            if (l.getCodocenza() == 'S') {  // verifica se c'è compresenza
+                boolean assentePresente = false;
+                for (String d : docentiLezione) {
+                    if (d.trim().equalsIgnoreCase(docenteAssente)) {
+                        assentePresente = true;
+                        break;
+                    }
+                }
+
+                if (assentePresente) {
+                    // Trova il collega presente (diverso dall'assente)
+                    for (String collega : docentiLezione) {
+                        if (!collega.trim().equalsIgnoreCase(docenteAssente)) {
+                            // Stampa dettagli della lezione con collega sostituto
+//                            System.out.println("Lezione n° " + l.getNumero() +
+//                                    ", Durata: " + l.getDurata() +
+//                                    ", Materia: " + l.getMateria() +
+//                                    ", Docente assente: " + docenteAssente +
+//                                    ", Sostituto: " + collega.trim() +
+//                                    ", Classe: " + l.getClasse() +
+//                                    ", Compresenza: " + l.getCodocenza() +
+//                                    ", Giorno: " + l.getGiorno() +
+//                                    ", Orario Inizio: " + l.getOrarioInizio());
+
+
+                            System.out.println("Lezione n° " + l.getNumero() +
+                                    ", Durata: " + l.getDurata() +
+                                    ", Materia: " + l.getMateria() +
+                                    ", Docente assente: " + docenteAssente +
+                                    ", Sostituto: " + collega.trim());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
     public static ArrayList<DocenteCella> getgetoradocentis(String [] cognome) {
         ArrayList<DocenteCella> risOraDocente = new ArrayList<>();
 

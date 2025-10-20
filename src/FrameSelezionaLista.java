@@ -54,14 +54,22 @@ public class FrameSelezionaLista {
         });
 
         conferma.addActionListener(e -> {
-            StringBuilder selezionati = new StringBuilder("Docenti selezionati:\n");
+            ArrayList<String> docentiAssentiSelezionati = new ArrayList<>();
             for (int i = 0; i < checkBoxList.size(); i++) {
                 if (checkBoxList.get(i).isSelected()) {
-                    selezionati.append(docentiList.get(i)).append("\n");
+                    docentiAssentiSelezionati.add(docentiList.get(i));
                 }
             }
-            JOptionPane.showMessageDialog(frame, selezionati.toString());
-            new FrameScelta();
+
+// Mostra docenti selezionati (facoltativo)
+            JOptionPane.showMessageDialog(frame, "Docenti selezionati:\n" + String.join("\n", docentiAssentiSelezionati));
+
+// Chiama il metodo per ogni docente assente
+            for (String docente : docentiAssentiSelezionati) {
+                LettoreFile.stampaSostitutoCompresenzaDettagli(docente);
+            }
+
+            //new FrameScelta();
             frame.dispose();
         });
 
