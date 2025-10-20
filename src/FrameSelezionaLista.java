@@ -12,7 +12,11 @@ public class FrameSelezionaLista {
     private ArrayList<JCheckBox> checkBoxList = new ArrayList<>();
     private ArrayList<String> docentiList = new ArrayList<>();
 
+    GestoreSostituzioni gestoreSostituzioni;
+
+
     public FrameSelezionaLista() {
+        gestoreSostituzioni = new GestoreSostituzioni(LettoreFile.lezioni);
         frame = new JFrame("Seleziona Docenti");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
@@ -64,9 +68,11 @@ public class FrameSelezionaLista {
 // Mostra docenti selezionati (facoltativo)
             JOptionPane.showMessageDialog(frame, "Docenti selezionati:\n" + String.join("\n", docentiAssentiSelezionati));
 
+
 // Chiama il metodo per ogni docente assente
             for (String docente : docentiAssentiSelezionati) {
-                LettoreFile.stampaSostitutoCompresenzaDettagli(docente);
+                gestoreSostituzioni.stampaSostitutoCompresenza(docente);
+                //gestoreSostituzioni.gestisciDisponibilitaPerClasse(docente);
             }
 
             //new FrameScelta();

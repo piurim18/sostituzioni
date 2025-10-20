@@ -15,6 +15,8 @@ public class LettoreFile {
     static ArrayList<ClasseCell> classeCells = new ArrayList<>();
     static ArrayList<DocenteCella> docenteCella = new ArrayList<>();
 
+    GestoreSostituzioni gestoreSostituzioni;
+
 
 
     public static void leggiFile(File percorsoLettoreFile) throws IOException, CsvValidationException{
@@ -54,6 +56,7 @@ public class LettoreFile {
                 classeCells.add(c);
                 DocenteCella d = new DocenteCella(materia,classe,orarioInizio,durata,giorno);
                 docenteCella.add(d);
+
 
             }
 
@@ -123,45 +126,45 @@ public class LettoreFile {
     }
 
 
-    public static void stampaSostitutoCompresenzaDettagli(String docenteAssente) {
-        for (Lezione l : lezioni) {
-            String[] docentiLezione = l.getCognome();
-            if (l.getCodocenza() == 'S') {  // verifica se c'è compresenza
-                boolean assentePresente = false;
-                for (String d : docentiLezione) {
-                    if (d.trim().equalsIgnoreCase(docenteAssente)) {
-                        assentePresente = true;
-                        break;
-                    }
-                }
-
-                if (assentePresente) {
-                    // Trova il collega presente (diverso dall'assente)
-                    for (String collega : docentiLezione) {
-                        if (!collega.trim().equalsIgnoreCase(docenteAssente)) {
-                            // Stampa dettagli della lezione con collega sostituto
+//    public static void stampaSostitutoCompresenzaDettagli(String docenteAssente) {
+//        for (Lezione l : lezioni) {
+//            String[] docentiLezione = l.getCognome();
+//            if (l.getCodocenza() == 'S') {  // verifica se c'è compresenza
+//                boolean assentePresente = false;
+//                for (String d : docentiLezione) {
+//                    if (d.trim().equalsIgnoreCase(docenteAssente)) {
+//                        assentePresente = true;
+//                        break;
+//                    }
+//                }
+//
+//                if (assentePresente) {
+//                    // Trova il collega presente (diverso dall'assente)
+//                    for (String collega : docentiLezione) {
+//                        if (!collega.trim().equalsIgnoreCase(docenteAssente)) {
+//                            // Stampa dettagli della lezione con collega sostituto
+////                            System.out.println("Lezione n° " + l.getNumero() +
+////                                    ", Durata: " + l.getDurata() +
+////                                    ", Materia: " + l.getMateria() +
+////                                    ", Docente assente: " + docenteAssente +
+////                                    ", Sostituto: " + collega.trim() +
+////                                    ", Classe: " + l.getClasse() +
+////                                    ", Compresenza: " + l.getCodocenza() +
+////                                    ", Giorno: " + l.getGiorno() +
+////                                    ", Orario Inizio: " + l.getOrarioInizio());
+//
+//
 //                            System.out.println("Lezione n° " + l.getNumero() +
 //                                    ", Durata: " + l.getDurata() +
 //                                    ", Materia: " + l.getMateria() +
 //                                    ", Docente assente: " + docenteAssente +
-//                                    ", Sostituto: " + collega.trim() +
-//                                    ", Classe: " + l.getClasse() +
-//                                    ", Compresenza: " + l.getCodocenza() +
-//                                    ", Giorno: " + l.getGiorno() +
-//                                    ", Orario Inizio: " + l.getOrarioInizio());
-
-
-                            System.out.println("Lezione n° " + l.getNumero() +
-                                    ", Durata: " + l.getDurata() +
-                                    ", Materia: " + l.getMateria() +
-                                    ", Docente assente: " + docenteAssente +
-                                    ", Sostituto: " + collega.trim());
-                        }
-                    }
-                }
-            }
-        }
-    }
+//                                    ", Sostituto: " + collega.trim());
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 
 
 
