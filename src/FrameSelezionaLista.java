@@ -75,7 +75,7 @@ public class FrameSelezionaLista {
                 //gestoreSostituzioni.gestisciDisponibilitaPerClasse(docente);
             }
 
-            //new FrameScelta();
+            new FrameSostituzioneCompresenza();
             frame.dispose();
         });
 
