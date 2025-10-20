@@ -134,7 +134,7 @@ public class FrameOrarioDocenti extends JFrame {
         indietro.setBackground(new Color(70, 130, 180));
         indietro.addActionListener(e -> {
             dispose();
-            new FrameSceltaOrario();
+            new FrameScelta();
         });
 
         comboDocenti.addActionListener(e -> aggiornaTabella());

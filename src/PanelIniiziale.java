@@ -47,7 +47,7 @@ public class PanelIniiziale extends JPanel {
         });
 
         prosegui.addActionListener((ActionEvent e) -> {
-            new FrameSceltaOrario();
+            new FrameScelta();
             SwingUtilities.getWindowAncestor(PanelIniiziale.this).dispose();
         });
     }

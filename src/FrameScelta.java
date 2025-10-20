@@ -1,9 +1,9 @@
 import javax.swing.*;
 
-public class FrameSceltaOrario extends JFrame {
+public class FrameScelta extends JFrame {
 
 
-    public FrameSceltaOrario() {
+    public FrameScelta() {
         add(new PanelScelta());
         setVisible(true);
         setSize(400,400);

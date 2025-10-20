@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
 
 public class FrameSelezionaLista {
@@ -62,6 +61,8 @@ public class FrameSelezionaLista {
                 }
             }
             JOptionPane.showMessageDialog(frame, selezionati.toString());
+            new FrameScelta();
+            frame.dispose();
         });
 
         frame.add(istruz, BorderLayout.CENTER);
