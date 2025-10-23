@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 public class FrameSostituzioneCompresenza {
     private JTable table;
     private final String[] info = new String[]{"ORA", "SOSTITUTI"};
-    private final String[] ore = new String[]{"08h00", "09h00", "10h00", "11h00", "12h00", "13h00"};
+    private final String[] ore = new String[]{"08h00", "09h00", "10h00", "11h10", "12h05", "13h00"};
     private JButton back = new JButton("Indietro");
     private DefaultTableModel modello;
 
