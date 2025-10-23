@@ -6,7 +6,7 @@ public class FrameScelta extends JFrame {
     public FrameScelta() {
         add(new PanelScelta());
         setVisible(true);
-        setSize(400,400);
+        setSize(1000,800);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

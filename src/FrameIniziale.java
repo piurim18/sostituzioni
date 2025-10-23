@@ -2,7 +2,8 @@ import javax.swing.*;
 
 public class FrameIniziale extends JFrame {
 
-
+    //JButton carica = new JButton("Carica");
+    //JButton prosegui = new JButton("Prosegui");
     PanelIniiziale panelIniiziale = new PanelIniiziale();
 
     public FrameIniziale(){
@@ -10,7 +11,7 @@ public class FrameIniziale extends JFrame {
 
         add(panelIniiziale);
         setVisible(true);
-        setSize(600,600);
+        setSize(800,800);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
