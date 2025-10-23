@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 import java.io.PrintStream;
 import java.util.ArrayList;
 
@@ -15,10 +10,10 @@ public class GestoreSostituzioni {
         this.lezioni = lezioni;
     }
 
-    public void stampaSostitutoCompresenza(String docenteAssente) {
+    public void stampaSostitutoCompresenza(String docenteAssente, String giorno) {
         for(Lezione l : this.lezioni) {
             String[] docentiLezione = l.getCognome();
-            if (l.getCodocenza() == 'S') {
+            if (l.getCodocenza() == 'S' && l.getGiorno().equalsIgnoreCase(giorno)) {
                 boolean assentePresente = false;
 
                 for(String d : docentiLezione) {

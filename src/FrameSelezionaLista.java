@@ -15,6 +15,9 @@ public class FrameSelezionaLista {
     GestoreSostituzioni gestoreSostituzioni;
 
 
+
+
+
     public FrameSelezionaLista() {
         gestoreSostituzioni = new GestoreSostituzioni(LettoreFile.lezioni);
         frame = new JFrame("Seleziona Docenti");
@@ -71,7 +74,7 @@ public class FrameSelezionaLista {
 
 // Chiama il metodo per ogni docente assente
             for (String docente : docentiAssentiSelezionati) {
-                gestoreSostituzioni.stampaSostitutoCompresenza(docente);
+                gestoreSostituzioni.stampaSostitutoCompresenza(docente,GiornoSettimana.getGiorno());
                 //gestoreSostituzioni.gestisciDisponibilitaPerClasse(docente);
             }
 
