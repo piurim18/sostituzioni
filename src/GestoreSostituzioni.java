@@ -24,7 +24,6 @@ public class GestoreSostituzioni {
 
             if (!assentePresente) continue;
 
-            // Se c’è compresenza
             if (l.getCodocenza() == 'S') {
                 for (String collega : docentiLezione) {
                     if (!collega.trim().equalsIgnoreCase(docenteAssente)) {
@@ -37,14 +36,48 @@ public class GestoreSostituzioni {
                         );
                     }
                 }
-            } else {
-                // Nessuna compresenza per questa lezione
-                System.out.println(
-                        "Lezione n° " + l.getNumero() +
-                                ", Docente assente: " + docenteAssente +
-                                " -> no codocenza"
-                );
-            }
+            }    else {
+
+                String oraLezione = l.getOrarioInizio();
+                String sostitutoTrovato = null;
+
+                for (Lezione possibileSostituto : this.lezioni) {
+
+                    if (!possibileSostituto.getGiorno().equalsIgnoreCase(giorno))
+                        continue;
+
+                    if (!possibileSostituto.getOrarioInizio().equalsIgnoreCase(oraLezione))
+                        continue;
+
+
+                    if (possibileSostituto.getMateria().equalsIgnoreCase("disposizione")) {
+
+                        for (String disp : possibileSostituto.getCognome()) {
+                            sostitutoTrovato = disp.trim();
+                            break;
+                        }
+                        break;
+                    }
+                }
+
+                if (sostitutoTrovato != null) {
+                    System.out.println(
+                            "Lezione n° " + l.getNumero() +
+                                    ", Ora: " + oraLezione +
+                                    ", Materia: " + l.getMateria() +
+                                    ", Docente assente: " + docenteAssente +
+                                    ", Sostituto (disposizione): " + sostitutoTrovato
+                    );
+                } else {
+                    System.out.println(
+                            "Lezione n° " + l.getNumero() +
+                                    ", Ora: " + oraLezione +
+                                    ", Materia: " + l.getMateria() +
+                                    ", Docente assente: " + docenteAssente +
+                                    " → Nessun docente in disposizione trovato"
+                    );
+                }
         }
     }
+}
 }
