@@ -83,7 +83,7 @@ public class FrameSelezionaLista {
                 tutteSostituzioni.addAll(sostituzioni);
             }
 
-            new FrameSostituzioneCompresenza(tutteSostituzioni);
+            new FrameSostituzioni(tutteSostituzioni);
             this.frame.dispose();
         });
         this.frame.add(istruz, "Center");

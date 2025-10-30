@@ -6,6 +6,8 @@
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,14 +16,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class FrameSostituzioneCompresenza {
+public class FrameSostituzioni {
     private JTable table;
     private DefaultTableModel modello;
     private final String[] info = new String[]{"ORA", "SOSTITUTI"};
     private final String[] ore = new String[]{"08h00", "09h00", "10h00", "11h10", "12h05", "13h00"};
     private JButton back = new JButton("Indietro");
+    private JButton export = new JButton("Esporta in PDF");
 
-    public FrameSostituzioneCompresenza(ArrayList<String[]> sostituzioni) {
+    public FrameSostituzioni(ArrayList<String[]> sostituzioni) {
         JFrame frame = new JFrame("Sostituzioni Compresenza");
         JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
         frame.setContentPane(mainPanel);
@@ -38,6 +41,7 @@ public class FrameSostituzioneCompresenza {
         mainPanel.add(new JScrollPane(this.table), "Center");
         JPanel southPanel = new JPanel();
         southPanel.add(this.back);
+        southPanel.add(this.export);
         mainPanel.add(southPanel, "South");
 
         for(String[] s : sostituzioni) {
@@ -52,6 +56,13 @@ public class FrameSostituzioneCompresenza {
             }
         }
 
+        export.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("dioaca");
+            }
+        });
+
         this.back.addActionListener((e) -> {
             new FrameScelta();
             frame.dispose();
@@ -61,4 +72,6 @@ public class FrameSostituzioneCompresenza {
         frame.setDefaultCloseOperation(3);
         frame.setVisible(true);
     }
+
+
 }
