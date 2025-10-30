@@ -20,7 +20,7 @@ public class GestoreSostituzioni {
                     assentePresente = true;
                     break;
                 }
-            }
+            }    
 
             if (!assentePresente) continue;
 
