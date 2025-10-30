@@ -178,19 +178,19 @@ public class GestoreSostituzioni {
         Set<String> impegnati = new HashSet();
 
         for (Lezione l : this.lezioni) {
-            for (String cognome : l.getCognome()) {
-                tuttiDocenti.add(cognome.trim());
-            }
+//            for (String cognome : l.getCognome()) {
+//                tuttiDocenti.add(cognome.trim());
+//            }
 
-            if (l.getGiorno().equalsIgnoreCase(giorno) && l.getOrarioInizio().equalsIgnoreCase(ora) && l.getMateria().equalsIgnoreCase("Disposizione")) {
+            if (l.getGiorno().equalsIgnoreCase(giorno) && l.getOrarioInizio().equalsIgnoreCase(ora) && l.getMateria().equalsIgnoreCase("Disposizione") && l.getClasse().equalsIgnoreCase("Disposizione")) {
                 for (String cognome : l.getCognome()) {
-                    impegnati.add(cognome.trim());
+                    tuttiDocenti.add(cognome.trim());
                 }
             }
         }
 
         ArrayList<String> liberi = new ArrayList(tuttiDocenti);
-        liberi.removeAll(impegnati);
+        //liberi.removeAll(impegnati);
         return liberi;
     }
 
