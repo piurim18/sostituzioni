@@ -8,13 +8,13 @@ import java.awt.event.MouseEvent;
 public class PanelScelta extends JPanel {
 
 
-    private static final Color BACKGROUND_COLOR = new Color(236, 240, 241); // Grigio chiaro
-    private static final Color TEXT_COLOR = new Color(44, 62, 80);         // Blu scuro per il testo
+    private static final Color BACKGROUND_COLOR = new Color(255, 255, 230); // Grigio chiaro
+    private static final Color TEXT_COLOR = new Color(0,0,0);         // Blu scuro per il testo
 
 
-    private static final Color COLOR_DOCENTI = new Color(255, 179, 186);     // Blu Acceso
-    private static final Color COLOR_CLASSI = new Color(155, 89, 182);      // Viola Elegante
-    private static final Color COLOR_SOSTITUZIONI = new Color(255, 62, 150); // Arancione Vivace
+    private static final Color COLOR_DOCENTI = new Color(74, 175, 228);     // Blu Acceso
+    private static final Color COLOR_CLASSI = new Color(126, 217, 87);      // Viola Elegante
+    private static final Color COLOR_SOSTITUZIONI = new Color(255, 215, 94); // Arancione Vivace
 
     private final JButton docenti = new JButton("ORARIO DOCENTI");
     private final JButton classe = new JButton("ORARIO CLASSI");
@@ -30,13 +30,13 @@ public class PanelScelta extends JPanel {
 
 
         JLabel titolo = new JLabel("SELEZIONA OPZIONE", SwingConstants.CENTER);
-        titolo.setFont(new Font("Arial", Font.BOLD, 40));
+        titolo.setFont(new Font("Arial", Font.BOLD, 50));
         titolo.setForeground(TEXT_COLOR);
 
 
-        setupButton(docenti, BUTTON_FONT, COLOR_DOCENTI, Color.WHITE, BUTTON_DIM);
-        setupButton(classe, BUTTON_FONT, COLOR_CLASSI, Color.WHITE, BUTTON_DIM);
-        setupButton(sostituzione, BUTTON_FONT, COLOR_SOSTITUZIONI, Color.WHITE, BUTTON_DIM);
+        setupButton(docenti, BUTTON_FONT, COLOR_DOCENTI, Color.BLACK, BUTTON_DIM);
+        setupButton(classe, BUTTON_FONT, COLOR_CLASSI, Color.BLACK, BUTTON_DIM);
+        setupButton(sostituzione, BUTTON_FONT, COLOR_SOSTITUZIONI, Color.BLACK, BUTTON_DIM);
 
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -87,41 +87,39 @@ public class PanelScelta extends JPanel {
         button.setForeground(fgColor);
         button.setPreferredSize(dim);
 
+
         button.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(bgColor.darker().darker(), 0),
+                BorderFactory.createLineBorder(Color.BLACK, 3),
                 BorderFactory.createEmptyBorder(15, 30, 15, 30)
         ));
 
-        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        button.setContentAreaFilled(true);
         button.setOpaque(true);
-
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         button.addMouseListener(new MouseAdapter() {
             private final Color originalBg = bgColor;
 
             @Override
             public void mouseEntered(MouseEvent evt) {
-
                 button.setBackground(originalBg.brighter());
             }
 
             @Override
             public void mouseExited(MouseEvent evt) {
-
                 button.setBackground(originalBg);
             }
 
             @Override
             public void mousePressed(MouseEvent evt) {
-
                 button.setBackground(originalBg.darker());
             }
 
             @Override
             public void mouseReleased(MouseEvent evt) {
-
                 button.setBackground(originalBg.brighter());
             }
         });
     }
+
 }

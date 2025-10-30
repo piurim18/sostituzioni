@@ -10,11 +10,10 @@ import java.io.IOException;
 
 public class PanelIniiziale extends JPanel {
 
-
-    private static final Color BACKGROUND_COLOR = new Color(236, 240, 241); // Grigio chiaro, quasi bianco
+    private static final Color BACKGROUND_COLOR = new Color(255, 255, 230); // Grigio chiaro, quasi bianco
     private static final Color PRIMARY_COLOR = new Color(192, 57, 43);    // Blu acceso (Carica File)
     private static final Color ACCENT_COLOR = new Color(124, 179, 66);     // Verde vivace (Prosegui)
-    private static final Color TEXT_COLOR = new Color(44, 62, 80);         // Blu scuro per il testo
+    private static final Color TEXT_COLOR = new Color(0, 0, 0);         // Blu scuro per il testo
 
     private final JButton carica = new JButton("CARICA FILE");
     private final JButton prosegui = new JButton("PROSEGUI");
@@ -24,8 +23,9 @@ public class PanelIniiziale extends JPanel {
         setBackground(BACKGROUND_COLOR);
 
 
-        JLabel titolo = new JLabel("Gestione Orario Lezioni", SwingConstants.CENTER);
-        titolo.setFont(new Font("Arial", Font.BOLD, 48)); // Font più grande e audace
+
+        JLabel titolo = new JLabel("GESTIONE ORARIO LEZIONI", SwingConstants.CENTER);
+        titolo.setFont(new Font("Arial", Font.BOLD, 50)); // Font più grande e audace
         titolo.setForeground(TEXT_COLOR);
 
 
@@ -38,8 +38,8 @@ public class PanelIniiziale extends JPanel {
         Dimension buttonDim = new Dimension(280, 70); // Pulsanti più grandi
 
 
-        setupButton(carica, buttonFont, PRIMARY_COLOR, Color.WHITE, buttonDim);
-        setupButton(prosegui, buttonFont, ACCENT_COLOR, Color.WHITE, buttonDim);
+        setupButton(carica, buttonFont, PRIMARY_COLOR, Color.BLACK, buttonDim);
+        setupButton(prosegui, buttonFont, ACCENT_COLOR, Color.BLACK, buttonDim);
 
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -79,44 +79,41 @@ public class PanelIniiziale extends JPanel {
         button.setForeground(fgColor);
         button.setPreferredSize(dim);
 
-
+        // 🔲 Cornice nera visibile
         button.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(bgColor.darker().darker(), 0),
+                BorderFactory.createLineBorder(Color.BLACK, 3),
                 BorderFactory.createEmptyBorder(15, 30, 15, 30)
         ));
 
-        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        button.setContentAreaFilled(true);
         button.setOpaque(true);
-
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         button.addMouseListener(new MouseAdapter() {
-            private Color originalBg = bgColor;
+            private final Color originalBg = bgColor;
 
             @Override
             public void mouseEntered(MouseEvent evt) {
-
                 button.setBackground(originalBg.brighter());
             }
 
             @Override
             public void mouseExited(MouseEvent evt) {
-
                 button.setBackground(originalBg);
             }
 
             @Override
             public void mousePressed(MouseEvent evt) {
-
                 button.setBackground(originalBg.darker());
             }
 
             @Override
             public void mouseReleased(MouseEvent evt) {
-
                 button.setBackground(originalBg.brighter());
             }
         });
     }
+
 
 
 

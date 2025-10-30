@@ -11,7 +11,7 @@ public class FrameIniziale extends JFrame {
 
         add(panelIniiziale);
         setVisible(true);
-        setSize(800,800);
+        setSize(1100,900);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
