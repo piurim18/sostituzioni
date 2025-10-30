@@ -91,8 +91,4 @@ public class FrameSelezionaLista {
         this.frame.add(this.conferma, "South");
         this.frame.setVisible(true);
     }
-
-    public static void main(String[] args) {
-        new FrameSelezionaLista();
-    }
 }

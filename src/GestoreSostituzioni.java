@@ -177,13 +177,13 @@ public class GestoreSostituzioni {
         Set<String> tuttiDocenti = new HashSet();
         Set<String> impegnati = new HashSet();
 
-        for(Lezione l : this.lezioni) {
-            for(String cognome : l.getCognome()) {
+        for (Lezione l : this.lezioni) {
+            for (String cognome : l.getCognome()) {
                 tuttiDocenti.add(cognome.trim());
             }
 
-            if (l.getGiorno().equalsIgnoreCase(giorno) && l.getOrarioInizio().equalsIgnoreCase(ora)) {
-                for(String cognome : l.getCognome()) {
+            if (l.getGiorno().equalsIgnoreCase(giorno) && l.getOrarioInizio().equalsIgnoreCase(ora) && l.getMateria().equalsIgnoreCase("Disposizione")) {
+                for (String cognome : l.getCognome()) {
                     impegnati.add(cognome.trim());
                 }
             }

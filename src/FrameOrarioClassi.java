@@ -300,5 +300,4 @@ public class FrameOrarioClassi extends JFrame {
         //}
         table.repaint();
     }
-
 }

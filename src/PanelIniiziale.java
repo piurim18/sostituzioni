@@ -10,10 +10,10 @@ import java.io.IOException;
 
 public class PanelIniiziale extends JPanel {
 
-    private static final Color BACKGROUND_COLOR = new Color(255, 255, 230); // Grigio chiaro, quasi bianco
-    private static final Color PRIMARY_COLOR = new Color(192, 57, 43);    // Blu acceso (Carica File)
-    private static final Color ACCENT_COLOR = new Color(124, 179, 66);     // Verde vivace (Prosegui)
-    private static final Color TEXT_COLOR = new Color(0, 0, 0);         // Blu scuro per il testo
+    private static final Color BACKGROUND_COLOR = new Color(255, 255, 230);
+    private static final Color PRIMARY_COLOR = new Color(192, 57, 43);
+    private static final Color ACCENT_COLOR = new Color(124, 179, 66);
+    private static final Color TEXT_COLOR = new Color(0, 0, 0);
 
     private final JButton carica = new JButton("CARICA FILE");
     private final JButton prosegui = new JButton("PROSEGUI");
@@ -22,51 +22,40 @@ public class PanelIniiziale extends JPanel {
         setLayout(new GridBagLayout());
         setBackground(BACKGROUND_COLOR);
 
-
-
         JLabel titolo = new JLabel("GESTIONE ORARIO LEZIONI", SwingConstants.CENTER);
-        titolo.setFont(new Font("Arial", Font.BOLD, 50)); // Font più grande e audace
+        titolo.setFont(new Font("Arial", Font.BOLD, 50));
         titolo.setForeground(TEXT_COLOR);
-
 
         JLabel sottotitolo = new JLabel("Carica il file CSV per iniziare", SwingConstants.CENTER);
         sottotitolo.setFont(new Font("Arial", Font.PLAIN, 18));
         sottotitolo.setForeground(TEXT_COLOR.darker());
 
-
-        Font buttonFont = new Font("Arial", Font.BOLD, 20); // Testo pulsanti in grassetto
-        Dimension buttonDim = new Dimension(280, 70); // Pulsanti più grandi
-
+        Font buttonFont = new Font("Arial", Font.BOLD, 20);
+        Dimension buttonDim = new Dimension(280, 70);
 
         setupButton(carica, buttonFont, PRIMARY_COLOR, Color.BLACK, buttonDim);
         setupButton(prosegui, buttonFont, ACCENT_COLOR, Color.BLACK, buttonDim);
-
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.CENTER;
 
-
         gbc.gridy = 0;
         gbc.insets = new Insets(50, 0, 10, 0);
         add(titolo, gbc);
-
 
         gbc.gridy = 1;
         gbc.insets = new Insets(0, 0, 60, 0);
         add(sottotitolo, gbc);
 
-
         gbc.gridy = 2;
         gbc.insets = new Insets(15, 0, 15, 0);
         add(carica, gbc);
 
-
         gbc.gridy = 3;
         gbc.insets = new Insets(25, 0, 50, 0);
         add(prosegui, gbc);
-
 
         carica.addActionListener(this::azioneCaricaFile);
         prosegui.addActionListener(this::azioneProsegui);
@@ -79,7 +68,6 @@ public class PanelIniiziale extends JPanel {
         button.setForeground(fgColor);
         button.setPreferredSize(dim);
 
-        // 🔲 Cornice nera visibile
         button.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(Color.BLACK, 3),
                 BorderFactory.createEmptyBorder(15, 30, 15, 30)
@@ -114,33 +102,35 @@ public class PanelIniiziale extends JPanel {
         });
     }
 
-
-
-
     private void azioneCaricaFile(ActionEvent e) {
-        JFileChooser fileChooser = new JFileChooser();
+        Frame frame = (Frame) SwingUtilities.getWindowAncestor(this);
+        if (frame == null) frame = new Frame(); // fallback in caso non sia dentro una finestra
 
-        fileChooser.setDialogTitle("Seleziona File Orario (CSV)");
+        FileDialog fileDialog = new FileDialog(frame, "Seleziona File Orario (CSV)", FileDialog.LOAD);
+        fileDialog.setFilenameFilter((dir, name) -> name.toLowerCase().endsWith(".csv"));
+        fileDialog.setVisible(true);
 
-        int result = fileChooser.showOpenDialog(this);
+        String directory = fileDialog.getDirectory();
+        String filename = fileDialog.getFile();
 
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
+        if (filename != null && directory != null) {
+            File selectedFile = new File(directory, filename);
             try {
-
                 LettoreFile.leggiFile(selectedFile);
-                //JOptionPane.showMessageDialog(this, "File caricato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
+                // JOptionPane.showMessageDialog(this, "File caricato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException | CsvValidationException ex) {
                 JOptionPane.showMessageDialog(this,
                         "Errore nel caricamento o nella validazione del file:\n" + ex.getMessage(),
                         "Errore",
                         JOptionPane.ERROR_MESSAGE);
             }
+        } else {
+            System.out.println("Nessun file selezionato");
         }
     }
 
-    private void azioneProsegui(ActionEvent e) {
 
+    private void azioneProsegui(ActionEvent e) {
         new FrameScelta();
         SwingUtilities.getWindowAncestor(this).dispose();
     }
