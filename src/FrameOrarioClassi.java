@@ -14,7 +14,7 @@ public class FrameOrarioClassi extends JFrame {
     private JButton indietro = new JButton("Indietro");
 
     private final String[] giorni = {"LUN", "MAR", "MER", "GIO", "VEN", "SAB"};
-    private final String[] ore = {"08h00", "09h00", "10h00", "11h00", "12h00", "13h00"};
+    private final String[] ore = {"08h00", "09h00", "10h00", "11h10", "12h05", "13h00"};
     private String cella;
 
     private Map<String, Color> coloriMaterie = new HashMap<>();

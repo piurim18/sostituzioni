@@ -132,10 +132,7 @@ public class PanelIniiziale extends JPanel {
             try {
 
                 LettoreFile.leggiFile(selectedFile);
-                JOptionPane.showMessageDialog(this,
-                        "File caricato con successo!",
-                        "Successo",
-                        JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(this, "File caricato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException | CsvValidationException ex) {
                 JOptionPane.showMessageDialog(this,
                         "Errore nel caricamento o nella validazione del file:\n" + ex.getMessage(),
