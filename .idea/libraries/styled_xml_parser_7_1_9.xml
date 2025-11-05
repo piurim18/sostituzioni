@@ -1,0 +1,40 @@
+<component name="libraryTable">
+  <library name="styled-xml-parser-7.1.9">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/styled-xml-parser-7.1.9.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/svg-7.1.9.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/forms-7.1.9.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/io-7.1.9.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/kernel-7.1.9.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/layout-7.1.9.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/pdfa-7.1.9.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/pdftest-7.1.9.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/sign-7.1.9.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/barcodes-7.1.9.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/svg-7.1.9-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/io-7.1.9-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/kernel-7.1.9-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/layout-7.1.9-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/pdfa-7.1.9-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/pdftest-7.1.9-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/sign-7.1.9-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/styled-xml-parser-7.1.9-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/barcodes-7.1.9-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/forms-7.1.9-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/svg-7.1.9-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/forms-7.1.9-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/io-7.1.9-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/kernel-7.1.9-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/layout-7.1.9-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/pdfa-7.1.9-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/pdftest-7.1.9-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/sign-7.1.9-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/styled-xml-parser-7.1.9-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.9/barcodes-7.1.9-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
