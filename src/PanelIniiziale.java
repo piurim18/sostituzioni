@@ -104,7 +104,7 @@ public class PanelIniiziale extends JPanel {
 
     private void azioneCaricaFile(ActionEvent e) {
         Frame frame = (Frame) SwingUtilities.getWindowAncestor(this);
-        if (frame == null) frame = new Frame(); // fallback in caso non sia dentro una finestra
+        if (frame == null) frame = new Frame();
 
         FileDialog fileDialog = new FileDialog(frame, "Seleziona File Orario (CSV)", FileDialog.LOAD);
         fileDialog.setFilenameFilter((dir, name) -> name.toLowerCase().endsWith(".csv"));
@@ -117,7 +117,7 @@ public class PanelIniiziale extends JPanel {
             File selectedFile = new File(directory, filename);
             try {
                 LettoreFile.leggiFile(selectedFile);
-                // JOptionPane.showMessageDialog(this, "File caricato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
+                // JOptionPane.showMessageDialog(null, "File caricato con successo!");
             } catch (IOException | CsvValidationException ex) {
                 JOptionPane.showMessageDialog(this,
                         "Errore nel caricamento o nella validazione del file:\n" + ex.getMessage(),
@@ -131,7 +131,7 @@ public class PanelIniiziale extends JPanel {
 
 
     private void azioneProsegui(ActionEvent e) {
-        new FrameScelta();
+        new FramePanelScelta();
         SwingUtilities.getWindowAncestor(this).dispose();
     }
 }

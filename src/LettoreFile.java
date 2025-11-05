@@ -1,3 +1,4 @@
+//import Sostituzioni.GestoreSostituzioni;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
@@ -15,9 +16,6 @@ public class LettoreFile {
     static ArrayList<ClasseCell> classeCells = new ArrayList<>();
     static ArrayList<DocenteCella> docenteCella = new ArrayList<>();
 
-    GestoreSostituzioni gestoreSostituzioni;
-
-
 
     public static void leggiFile(File percorsoLettoreFile) throws IOException, CsvValidationException{
         try (CSVReader csvReader = new CSVReaderBuilder(new FileReader(percorsoLettoreFile))
@@ -28,12 +26,6 @@ public class LettoreFile {
             String[] riga;
 
             while ((riga = csvReader.readNext()) != null){
-
-
-
-//                for (String dato: riga ){
-//                    System.out.print(dato + "\t");
-//                }
 
                 int numero = (int) Double.parseDouble(riga[0]);
                 String durata = riga[1];
@@ -46,9 +38,7 @@ public class LettoreFile {
 
                 String [] cognomi = cogn.toLowerCase().split(";");
 
-//                for (int i = 0; i < cognomi.length; i++){
-//                    System.out.println(cognomi[i]);
-//                }
+
 
                 Lezione lezione = new Lezione(numero, durata, materia, cognomi, classe, codocenza, giorno, orarioInizio);
                 lezioni.add(lezione);
@@ -73,27 +63,6 @@ public class LettoreFile {
                     risultato.add(l);
                     break;
                 }
-            }
-        }
-        return risultato;
-    }
-
-    public static ArrayList<Lezione> getOrarioClasse(String classe) {
-        ArrayList<Lezione> risultato = new ArrayList<>();
-
-        for (Lezione l : lezioni) {
-            if (l.getClasse().equalsIgnoreCase(classe)) {
-                System.out.println(
-                        l.getGiorno() + " " +
-                                l.getOrarioInizio() + " - " +
-                                l.getDurata() + " | " +
-                                l.getMateria()
-
-                );
-                risultato.add(l);
-
-
-
             }
         }
         return risultato;
@@ -143,15 +112,15 @@ public class LettoreFile {
 //                    for (String collega : docentiLezione) {
 //                        if (!collega.trim().equalsIgnoreCase(docenteAssente)) {
 //                            // Stampa dettagli della lezione con collega sostituto
-////                            System.out.println("Lezione n° " + l.getNumero() +
-////                                    ", Durata: " + l.getDurata() +
-////                                    ", Materia: " + l.getMateria() +
-////                                    ", Docente assente: " + docenteAssente +
-////                                    ", Sostituto: " + collega.trim() +
-////                                    ", Classe: " + l.getClasse() +
-////                                    ", Compresenza: " + l.getCodocenza() +
-////                                    ", Giorno: " + l.getGiorno() +
-////                                    ", Orario Inizio: " + l.getOrarioInizio());
+    ////                            System.out.println("Lezione n° " + l.getNumero() +
+    ////                                    ", Durata: " + l.getDurata() +
+    ////                                    ", Materia: " + l.getMateria() +
+    ////                                    ", Docente assente: " + docenteAssente +
+    ////                                    ", Sostituto: " + collega.trim() +
+    ////                                    ", Classe: " + l.getClasse() +
+    ////                                    ", Compresenza: " + l.getCodocenza() +
+    ////                                    ", Giorno: " + l.getGiorno() +
+    ////                                    ", Orario Inizio: " + l.getOrarioInizio());
 //
 //
 //                            System.out.println("Lezione n° " + l.getNumero() +
@@ -169,12 +138,12 @@ public class LettoreFile {
 
 
 
-    public static ArrayList<DocenteCella> getgetoradocentis(String [] cognome) {
+    public static ArrayList<DocenteCella> getgetoradocentis(String cognome) {
         ArrayList<DocenteCella> risOraDocente = new ArrayList<>();
 
         for (Lezione l : lezioni) {
-            if (Arrays.equals(l.getCognome(),cognome)){
-                //if(l.getCognome().equals(cognome)){
+            // if (Arrays.equals(l.getCognome(),cognome)){
+            if(l.getCognome().equals(cognome)){
                 DocenteCella od = new DocenteCella(
                         l.getMateria(),
                         l.getClasse(),

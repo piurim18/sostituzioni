@@ -13,17 +13,17 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class FrameOrarioDocenti extends JFrame {
+    private final Color COLORE_PRIMARIO = new Color(70, 130, 180);
+    private final Color COLORE_SECONDARIO = new Color(245, 245, 245);
+    private final Color COLORE_BORDO = new Color(220, 220, 220);
+    private final Font FONT_PRINCIPALE = new Font("Segoe UI", Font.PLAIN, 14);
+    private final Font FONT_TITOLO = new Font("Segoe UI", Font.BOLD, 16);
+    private final Font FONT_TABELLA = new Font("Segoe UI", Font.BOLD, 12);
     private JComboBox<String> comboDocenti;
     private JTable table;
     private DefaultTableModel modello;
@@ -99,7 +99,7 @@ public class FrameOrarioDocenti extends JFrame {
         this.indietro.setBackground(new Color(70, 130, 180));
         this.indietro.addActionListener((e) -> {
             this.dispose();
-            new FrameScelta();
+            new FramePanelScelta();
         });
         this.comboDocenti.addActionListener((e) -> this.aggiornaTabella());
         this.setVisible(true);
@@ -115,31 +115,6 @@ public class FrameOrarioDocenti extends JFrame {
         return -1;
     }
 
-    private int getColonnaGiorno(String giorno) {
-        switch (giorno.toLowerCase()) {
-            case "lunedì":
-            case "lun":
-                return 1;
-            case "martedì":
-            case "mar":
-                return 2;
-            case "mercoledì":
-            case "mer":
-                return 3;
-            case "giovedì":
-            case "gio":
-                return 4;
-            case "venerdì":
-            case "ven":
-                return 5;
-            case "sabato":
-            case "sab":
-                return 6;
-            default:
-                return -1;
-        }
-    }
-
     private void aggiornaTabella() {
         String docenteSelezionato = (String)this.comboDocenti.getSelectedItem();
         if (docenteSelezionato != null) {
@@ -149,7 +124,7 @@ public class FrameOrarioDocenti extends JFrame {
                 }
             }
 
-            ArrayList<Lezione> orarioDocente = new ArrayList();
+            ArrayList<Lezione> orarioDocente = LettoreFile.getOrarioDocente(docenteSelezionato);
 
             for(Lezione l : LettoreFile.lezioni) {
                 for(String cognome : l.getCognome()) {
@@ -202,11 +177,17 @@ public class FrameOrarioDocenti extends JFrame {
     class ColorRenderer extends DefaultTableCellRenderer {
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             JLabel cell = (JLabel)super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            cell.setHorizontalAlignment(0);
-            cell.setVerticalAlignment(0);
+            cell.setHorizontalAlignment(SwingConstants.CENTER);
+            cell.setVerticalAlignment(SwingConstants.CENTER);
+            cell.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(COLORE_BORDO, 1),
+                    BorderFactory.createEmptyBorder(5, 5, 5, 5)
+            ));
+
             if (column == 0) {
-                cell.setBackground(Color.WHITE);
+                cell.setBackground(COLORE_SECONDARIO);
                 cell.setForeground(Color.BLACK);
+                cell.setFont(FONT_TITOLO);
                 return cell;
             } else {
                 String testo = value != null ? value.toString() : "";
@@ -221,7 +202,7 @@ public class FrameOrarioDocenti extends JFrame {
                         materia = testo.split("\\(")[0].trim();
                     }
 
-                    Color colore = (Color)FrameOrarioDocenti.this.coloriMaterie.get(materia);
+                    Color colore = FrameOrarioDocenti.this.coloriMaterie.get(materia);
                     if (colore != null) {
                         cell.setBackground(colore);
                     } else {
