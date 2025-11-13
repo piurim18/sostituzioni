@@ -7,12 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -49,14 +44,17 @@ public class FrameOrarioDocenti extends JFrame {
         JPanel pannelloNord = new JPanel();
         pannelloNord.add(new JLabel("Seleziona docente: "));
         this.comboDocenti = new JComboBox();
-        Set<String> cognomiUnici = new HashSet();
+        Set<String> cognomiUnici = new TreeSet<>();
 
         for(Lezione l : LettoreFile.lezioni) {
             for(String cognome : l.getCognome()) {
-                if (cognomiUnici.add(cognome)) {
-                    this.comboDocenti.addItem(cognome);
-                }
+                String cognomePulito = cognome.trim();
+                cognomiUnici.add(cognomePulito);
             }
+        }
+
+        for(String cognomeOrdinato : cognomiUnici) {
+            this.comboDocenti.addItem(cognomeOrdinato);
         }
 
         for(Lezione l : LettoreFile.lezioni) {
@@ -128,7 +126,8 @@ public class FrameOrarioDocenti extends JFrame {
 
             for(Lezione l : LettoreFile.lezioni) {
                 for(String cognome : l.getCognome()) {
-                    if (cognome.trim().equalsIgnoreCase(docenteSelezionato.trim())) {
+                    //if (cognome.trim().equalsIgnoreCase(docenteSelezionato.trim())) {
+                    if (cognome.trim().equalsIgnoreCase(docenteSelezionato)) {
                         orarioDocente.add(l);
                         break;
                     }

@@ -29,12 +29,12 @@ public class FrameSostituzioni {
     private final Color TABLE_HEADER_BG = new Color(70, 130, 180);
     private final Color TABLE_ROW_ALT = new Color(248, 250, 252);
 
-    private final Color COLORE_COMPRESENZA = new Color(255, 230, 230); // ROSSO CHIARO
-    private final Color COLORE_DISPOSIZIONE = new Color(230, 255, 230); // VERDE CHIARO
-    private final Color COLORE_MATERIA_AFFINE = new Color(255, 255, 200); // GIALLO CHIARO
-    private final Color COLORE_STESSA_CLASSE = new Color(230, 240, 255); // BLU CHIARO
+    private final Color COLORE_COMPRESENZA = new Color(186, 104, 200); // ROSSO CHIARO
+    private final Color COLORE_DISPOSIZIONE = new Color(102, 205, 170); // VERDE CHIARO
+    private final Color COLORE_MATERIA_AFFINE = new Color (211,211,211);// GRIGINOO
+    private final Color COLORE_STESSA_CLASSE = new Color(65, 105, 225); // BLU CHIARO
     private final Color COLORE_ORE_PAGAMENTO = new Color(255, 220, 255); // VIOLA CHIARO
-    private final Color COLORE_CODOCENZA = new Color(255, 200, 150); // ARANCIONE CHIARO
+    private final Color COLORE_CODOCENZA = new Color(255, 184, 77); // ARANCIONE CHIAROO
     private final Color COLORE_NESSUNO = Color.WHITE;
 
     public FrameSostituzioni(ArrayList<Object[]> tutteSostituzioni, ArrayList<String> docentiAssenti, String giorno) {
@@ -170,13 +170,14 @@ public class FrameSostituzioni {
         elementiPanel.setBackground(BACKGROUND_COLOR);
         elementiPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
 
-        elementiPanel.add(creaElementoLegenda(COLORE_COMPRESENZA, "Compresenza", "Compresenza standard"));
+        // CORREZIONE: Aggiunti tutti i tipi di sostituzione con i colori corretti
+        elementiPanel.add(creaElementoLegenda(COLORE_CODOCENZA, "Codocenza", "Docente già in compresenza"));
         elementiPanel.add(creaElementoLegenda(COLORE_DISPOSIZIONE, "Disposizione", "Docente in ore di disposizione"));
         elementiPanel.add(creaElementoLegenda(COLORE_MATERIA_AFFINE, "Materia affine", "Stessa materia o affine"));
 
         elementiPanel.add(creaElementoLegenda(COLORE_STESSA_CLASSE, "Stessa classe", "Docente della stessa classe"));
+        elementiPanel.add(creaElementoLegenda(COLORE_COMPRESENZA, "Compresenza", "Compresenza standard"));
         elementiPanel.add(creaElementoLegenda(COLORE_ORE_PAGAMENTO, "Ore a pagamento", "Ore libere a pagamento"));
-        elementiPanel.add(creaElementoLegenda(COLORE_CODOCENZA, "Codocenza", "Docente già in compresenza"));
 
         legendaPanel.add(titoloLegenda);
         legendaPanel.add(elementiPanel);

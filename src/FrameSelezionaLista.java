@@ -392,6 +392,7 @@ public class FrameSelezionaLista {
             ArrayList<Object[]> tutteSostituzioni = new ArrayList<>();
             for (String docente : docentiAssenti) {
                 ArrayList<String[]> sostituzioni = gestoreSostituzioni.getSostitutiCompresenza(docente, giorno);
+
                 tutteSostituzioni.add(new Object[]{docente, sostituzioni});
             }
 
